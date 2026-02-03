@@ -11,7 +11,7 @@ import { Check, ChevronsUpDown } from "lucide-react";
 // API function to submit to Bajaj LMS
 const submitToLMS = async (data) => {
     console.log("Submitting to LMS:", data);
-    debugger; // Debugger point 1: Before API call
+    ; //   point 1: Before API call
 
     const apiUrl = "https://webpartner.bajajallianz.com/EurekaWSNew/service/pushData";
 
@@ -69,7 +69,7 @@ const submitToLMS = async (data) => {
             body: JSON.stringify(fullPayload)
         });
 
-        debugger; // Debugger point 2: After API response
+        ; //   point 2: After API response
 
         const result = await response.json();
         console.log("LMS Response:", result);
@@ -77,7 +77,7 @@ const submitToLMS = async (data) => {
         return result;
     } catch (error) {
         console.error("LMS API Error:", error);
-        debugger; // Debugger point 3: On error
+        ; //   point 3: On error
         throw error;
     }
 };
@@ -171,7 +171,7 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        debugger; // Debugger point 0: Button clicked
+        ; //   point 0: Button clicked
         console.log("handleSubmit called with formData:", formData);
 
         if (!validateStep2()) return;
