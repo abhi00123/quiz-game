@@ -131,8 +131,8 @@ function App() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans transition-colors duration-300">
-            <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-bajaj-blue backdrop-blur supports-[backdrop-filter]:bg-bajaj-blue/95 shadow-md">
+        <div className="h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans transition-colors duration-300 overflow-hidden">
+            <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-bajaj-blue backdrop-blur supports-[backdrop-filter]:bg-bajaj-blue/95 shadow-md flex-shrink-0">
                 <div className="container flex h-16 max-w-screen-2xl items-center px-4 justify-center">
                     <div className="flex items-center gap-2 text-white">
                         <Building2 className="h-6 w-6" />
@@ -142,8 +142,8 @@ function App() {
             </header>
 
             {/* Main Content */}
-            <main className="flex-1 flex items-center justify-center p-4 sm:p-8">
-                <div className="w-full max-w-[600px] min-h-[500px]">
+            <main className="flex-1 flex items-center justify-center p-3 overflow-y-auto">
+                <div className="w-full max-w-[600px]">
                     <AnimatePresence mode="wait">
                         {currentScreen === SCREENS.WELCOME && (
                             <WelcomeScreen key="welcome" onStart={startQuiz} />

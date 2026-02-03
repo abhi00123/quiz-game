@@ -11,7 +11,6 @@ import { Check, ChevronsUpDown } from "lucide-react";
 // API function to submit to Bajaj LMS
 const submitToLMS = async (data) => {
     console.log("Submitting to LMS:", data);
-    ; //   point 1: Before API call
 
     const apiUrl = "https://webpartner.bajajallianz.com/EurekaWSNew/service/pushData";
 
@@ -69,15 +68,12 @@ const submitToLMS = async (data) => {
             body: JSON.stringify(fullPayload)
         });
 
-        ; //   point 2: After API response
-
         const result = await response.json();
         console.log("LMS Response:", result);
 
         return result;
     } catch (error) {
         console.error("LMS API Error:", error);
-        ; //   point 3: On error
         throw error;
     }
 };
@@ -218,33 +214,33 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
             transition={{ duration: 0.4 }}
         >
             <Card className="shadow-2xl border-brand-blue/10 dark:border-brand-blue/20">
-                <CardHeader className="text-center pb-2">
-                    <CardTitle className="text-2xl font-bold text-foreground">
+                <CardHeader className="text-center pb-1 pt-3">
+                    <CardTitle className="text-lg font-bold text-foreground">
                         {step === 1 ? "Just a few details" : "Almost there!"}
                     </CardTitle>
-                    <CardDescription>
+                    <CardDescription className="text-xs">
                         {step === 1
                             ? "We need this to calculate your personalized quote."
                             : "Help us understand your profile better."}
                     </CardDescription>
                     {/* Progress Indicator */}
-                    <div className="flex justify-center gap-2 mt-2">
-                        <div className={`h-1.5 w-16 rounded-full transition-colors ${step === 1 ? 'bg-brand-orange' : 'bg-muted'}`} />
-                        <div className={`h-1.5 w-16 rounded-full transition-colors ${step === 2 ? 'bg-brand-orange' : 'bg-muted'}`} />
+                    <div className="flex justify-center gap-2 mt-1.5">
+                        <div className={`h-0.5 w-12 rounded-full transition-colors ${step === 1 ? 'bg-brand-orange' : 'bg-muted'}`} />
+                        <div className={`h-0.5 w-12 rounded-full transition-colors ${step === 2 ? 'bg-brand-orange' : 'bg-muted'}`} />
                     </div>
                 </CardHeader>
-                <CardContent className="pt-4">
-                    <form className="space-y-4">
+                <CardContent className="pt-2 pb-3 px-4">
+                    <form className="space-y-2">
                         {step === 1 && (
                             <motion.div
                                 initial={{ x: 20, opacity: 0 }}
                                 animate={{ x: 0, opacity: 1 }}
-                                className="space-y-4"
+                                className="space-y-2"
                             >
                                 {/* Form Fields Step 1 */}
-                                <div className="space-y-1">
+                                <div className="space-y-0.5">
                                     <Label htmlFor="nri">Are you an NRI?</Label>
-                                    <div className="flex gap-4">
+                                    <div className="flex gap-2">
                                         <Button
                                             type="button"
                                             variant={formData.nri === 'yes' ? 'brand' : 'outline'}

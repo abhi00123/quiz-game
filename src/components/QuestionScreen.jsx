@@ -16,12 +16,12 @@ const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSel
             <QuestionStepper currentQuestion={currentQuestion} totalQuestions={totalQuestions} />
 
             <Card className="shadow-md border-0 bg-white">
-                <CardContent className="p-6">
-                    <h2 className="text-xl font-bold text-gray-800 mb-6 leading-relaxed">
+                <CardContent className="p-3 sm:p-6">
+                    <h2 className="text-base sm:text-xl font-bold text-gray-800 mb-3 sm:mb-6 leading-relaxed">
                         {question.question}
                     </h2>
 
-                    <div className="space-y-3">
+                    <div className="space-y-2 sm:space-y-3">
                         {question.options.map((option, index) => (
                             <motion.div
                                 key={index}
@@ -31,13 +31,13 @@ const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSel
                             >
                                 <Button
                                     variant={selectedAnswer === index ? "brand" : "outline"}
-                                    className={`w-full justify-start text-left h-auto py-4 px-6 text-base whitespace-normal ${selectedAnswer === index
-                                        ? "ring-2 ring-soft-blue ring-offset-2"
-                                        : "hover:border-soft-blue hover:text-soft-blue hover:bg-blue-50"
+                                    className={`w-full justify-start text-left h-auto py-2.5 sm:py-4 px-3 sm:px-6 text-sm sm:text-base whitespace-normal ${selectedAnswer === index
+                                        ? "ring-2 ring-bajaj-blue ring-offset-2"
+                                        : "hover:border-bajaj-blue hover:text-bajaj-blue hover:bg-blue-50"
                                         }`}
                                     onClick={() => onAnswerSelect(index)}
                                 >
-                                    <span className="mr-3 font-bold opacity-70">{index + 1}.</span>
+                                    <span className="mr-2 sm:mr-3 font-bold opacity-70">{index + 1}.</span>
                                     {option}
                                 </Button>
                             </motion.div>
