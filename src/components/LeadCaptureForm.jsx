@@ -8,11 +8,78 @@ import { Label } from "./ui/label";
 import { isValidEmail, isValidPhone } from '../utils/helpers';
 import { Check, ChevronsUpDown } from "lucide-react";
 
-// Mock API function (to be moved to utils/api.js later if needed)
+// API function to submit to Bajaj LMS
 const submitToLMS = async (data) => {
-    // In a real scenario, this would be a fetch call
     console.log("Submitting to LMS:", data);
-    return new Promise((resolve) => setTimeout(resolve, 1500));
+    debugger; // Debugger point 1: Before API call
+
+    const apiUrl = "https://webpartner.bajajallianz.com/EurekaWSNew/service/pushData";
+
+    // Complete payload with all required fields
+    const fullPayload = {
+        name: data.name,
+        age: data.age || 25,
+        mobile_no: data.mobile_no,
+        email_id: data.email_id,
+        goal_name: data.goal_name || "1",
+        param1: null,
+        param2: null,
+        param3: null,
+        param4: data.param4, // pincode
+        param5: "",
+        param13: "",
+        param18: "",
+        param19: data.param19, // DOB
+        param20: "",
+        param23: data.param23, // gender
+        param24: data.param24, // occupation
+        param25: data.param25, // education
+        param26: data.param26, // income
+        param36: "manual",
+        summary_dtls: "",
+        p_user_eml: data.email_id,
+        p_data_source: data.p_data_source || "WS_ETOUCH_BUY",
+        p_curr_page_path: "https://www.bajajlifeinsurance.com/etouch/",
+        p_ip_addsr: "",
+        p_remark_url: "",
+        prodId: data.prodId || "345",
+        medium: "",
+        contact_number: "",
+        content: "",
+        campaign: "",
+        source: "",
+        keyword: "",
+        flag: "",
+        parameter: "",
+        name1: "",
+        param28: "",
+        param29: "",
+        param30: ""
+    };
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json",
+                "Origin": "https://www.bajajlifeinsurance.com",
+                "Referer": "https://www.bajajlifeinsurance.com/"
+            },
+            body: JSON.stringify(fullPayload)
+        });
+
+        debugger; // Debugger point 2: After API response
+
+        const result = await response.json();
+        console.log("LMS Response:", result);
+
+        return result;
+    } catch (error) {
+        console.error("LMS API Error:", error);
+        debugger; // Debugger point 3: On error
+        throw error;
+    }
 };
 
 const LeadCaptureForm = ({ onSubmit, onSkip }) => {
@@ -104,6 +171,9 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        debugger; // Debugger point 0: Button clicked
+        console.log("handleSubmit called with formData:", formData);
+
         if (!validateStep2()) return;
 
         setIsLoading(true);
