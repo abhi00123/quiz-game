@@ -1,136 +1,178 @@
 import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import WelcomeScreen from './components/WelcomeScreen';
-import QuestionScreen from './components/QuestionScreen';
-import FeedbackScreen from './components/FeedbackScreen';
-import ResultsScreen from './components/ResultsScreen';
+import GoalSelectionScreen from './components/GoalSelectionScreen';
+import GoalAssessmentScreen from './components/GoalAssessmentScreen';
+import ScoreResultsScreen from './components/ScoreResultsScreen';
+import BookingScreen from './components/BookingScreen';
 import LeadCaptureForm from './components/LeadCaptureForm';
-import quizQuestions from './data/questions';
 import { useSound } from './hooks/useSound';
-import { useLocalStorage } from './hooks/useLocalStorage';
 import { useTheme } from './hooks/useTheme';
 import { Button } from "./components/ui/button";
-import { Building2, Sun, Moon } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import './index.css';
 
 const SCREENS = {
     WELCOME: 'welcome',
-    QUESTION: 'question',
-    FEEDBACK: 'feedback',
-    RESULTS: 'results',
-    FORM: 'form',
+    GOAL_SELECTION: 'goal_selection',
+    ASSESSMENT: 'assessment',
+    SCORE_RESULTS: 'score_results',
+    BOOKING: 'booking',
+    LEAD_FORM: 'lead_form',
     THANK_YOU: 'thank_you'
 };
 
 function App() {
     const [currentScreen, setCurrentScreen] = useState(SCREENS.WELCOME);
+    const [selectedGoals, setSelectedGoals] = useState([]);
+    const [currentGoalIndex, setCurrentGoalIndex] = useState(0);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [selectedAnswer, setSelectedAnswer] = useState(null);
-    const [userAnswers, setUserAnswers] = useState([]);
-    const [score, setScore] = useState(0);
-    const [showFeedback, setShowFeedback] = useState(false);
+    const [responses, setResponses] = useState([]); // Array of { goalId, questionIndex, answer: boolean }
+    const [score, setScore] = useState(0); // Count of "Yes" answers
 
     const { playSound } = useSound();
-    const [highScore, setHighScore] = useLocalStorage('quizHighScore', 0);
-    const { theme, toggleTheme, isDark } = useTheme();
+    const { toggleTheme, isDark } = useTheme();
 
-    const currentQuestion = quizQuestions[currentQuestionIndex];
-    const totalQuestions = quizQuestions.length;
-
-    const startQuiz = () => {
-        setCurrentScreen(SCREENS.QUESTION);
+    // Start the game
+    const startGame = () => {
+        setCurrentScreen(SCREENS.GOAL_SELECTION);
+        setSelectedGoals([]);
+        setCurrentGoalIndex(0);
         setCurrentQuestionIndex(0);
+        setResponses([]);
         setScore(0);
-        setUserAnswers([]);
-        setSelectedAnswer(null);
         playSound('start');
     };
 
-    const handleAnswerSelect = (answerIndex) => {
-        if (selectedAnswer !== null) return; // Prevent multiple selections
+    // Handle goal selection complete
+    const handleGoalsSelected = (goals) => {
+        setSelectedGoals(goals);
+        setCurrentGoalIndex(0);
+        setCurrentQuestionIndex(0);
+        setCurrentScreen(SCREENS.ASSESSMENT);
+    };
 
-        setSelectedAnswer(answerIndex);
-        const isCorrect = answerIndex === currentQuestion.correctAnswer;
+    // Handle answer to assessment question
+    const handleAnswer = (answer) => {
+        const currentGoal = selectedGoals[currentGoalIndex];
+        
+        // Record response
+        const newResponse = {
+            goalId: currentGoal.id,
+            goalName: currentGoal.name,
+            questionIndex: currentQuestionIndex,
+            answer
+        };
+        setResponses(prev => [...prev, newResponse]);
 
-        // Update score
-        if (isCorrect) {
+        // Update score if Yes
+        if (answer) {
             setScore(prev => prev + 1);
             playSound('correct');
         } else {
             playSound('incorrect');
         }
 
-        // Store answer
-        setUserAnswers(prev => [
-            ...prev,
-            {
-                questionId: currentQuestion.id,
-                selectedAnswer: answerIndex,
-                correctAnswer: currentQuestion.correctAnswer,
-                isCorrect
-            }
-        ]);
-
-        // Show feedback
-        setShowFeedback(true);
-        setCurrentScreen(SCREENS.FEEDBACK);
-    };
-
-    const handleNextQuestion = () => {
-        setShowFeedback(false);
-        setSelectedAnswer(null);
-
-        if (currentQuestionIndex < totalQuestions - 1) {
-            // Next question
+        // Navigate to next question or goal
+        if (currentQuestionIndex < 2) {
+            // Next question for same goal
             setCurrentQuestionIndex(prev => prev + 1);
-            setCurrentScreen(SCREENS.QUESTION);
+        } else if (currentGoalIndex < 2) {
+            // Next goal
+            setCurrentGoalIndex(prev => prev + 1);
+            setCurrentQuestionIndex(0);
         } else {
-            // Quiz complete
-            const finalScore = score + (selectedAnswer === currentQuestion.correctAnswer ? 1 : 0);
-            if (finalScore > highScore) {
-                setHighScore(finalScore);
-            }
-            setCurrentScreen(SCREENS.RESULTS);
+            // All questions complete - show results
+            setCurrentScreen(SCREENS.SCORE_RESULTS);
             playSound('complete');
         }
     };
 
-    const handleRestart = () => {
-        setCurrentScreen(SCREENS.WELCOME);
-        setCurrentQuestionIndex(0);
-        setScore(0);
-        setUserAnswers([]);
-        setSelectedAnswer(null);
-        setShowFeedback(false);
+    // Handle Call Now CTA
+    const handleCallNow = () => {
+        // In production, this would use URL parameters to get the LG/SM phone number
+        // For now, using a placeholder number
+        window.location.href = 'tel:+911800209999';
     };
 
+    // Handle Book Slot CTA
+    const handleBookSlot = () => {
+        setCurrentScreen(SCREENS.BOOKING);
+    };
+
+    // Handle "Talk to Expert" / Lead Form CTA
     const handleTalkToExpert = () => {
-        setCurrentScreen(SCREENS.FORM);
+        setCurrentScreen(SCREENS.LEAD_FORM);
     };
 
-    const handleFormSubmit = (formData) => {
-        console.log('Form submitted:', formData);
+    // Handle Lead Form submission (Bajaj LMS API)
+    const handleLeadFormSubmit = (lmsPayload) => {
+        // Add game-specific data to the lead
+        ; // Lead generation  point
+        console.log('=== LEAD GENERATED ===' );
+        console.log('Lead Type: Life Goals Preparedness – Gamified Lead');
+        console.log('Preparedness Score:', Math.round((score / 9) * 100) + '%');
+        console.log('Selected Goals:', selectedGoals.map(g => g.name));
+        console.log('LMS Payload:', lmsPayload);
+        console.log('All Responses:', responses);
+        console.log('======================');
+        
         playSound('success');
         setCurrentScreen(SCREENS.THANK_YOU);
-
+        
+        // Reset after showing thank you
         setTimeout(() => {
-            alert(`Thank you, ${formData.name}! Our expert will contact you at ${formData.phone} ${formData.preferredTime}.`);
             handleRestart();
-        }, 1000);
+        }, 4000);
     };
 
-    const handleSkipForm = () => {
+    // Skip lead form
+    const handleSkipLeadForm = () => {
         handleRestart();
+    };
+
+    // Handle booking submission
+    const handleBookingSubmit = (bookingData) => {
+        console.log('Booking submitted:', bookingData);
+        console.log('Lead tagged as: Life Goals Preparedness – Gamified Lead');
+        console.log('Score:', Math.round((score / 9) * 100) + '%');
+        console.log('Selected Goals:', selectedGoals.map(g => g.name));
+        
+        playSound('success');
+        setCurrentScreen(SCREENS.THANK_YOU);
+        
+        // Reset after showing thank you
+        setTimeout(() => {
+            handleRestart();
+        }, 3000);
+    };
+
+    // Back from booking to results
+    const handleBackFromBooking = () => {
+        setCurrentScreen(SCREENS.SCORE_RESULTS);
+    };
+
+    // Restart the game
+    const handleRestart = () => {
+        setCurrentScreen(SCREENS.WELCOME);
+        setSelectedGoals([]);
+        setCurrentGoalIndex(0);
+        setCurrentQuestionIndex(0);
+        setResponses([]);
+        setScore(0);
     };
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans transition-colors duration-300">
             {/* Header */}
-            <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-brand-blue/95 backdrop-blur supports-[backdrop-filter]:bg-brand-blue/60 dark:bg-slate-900/95 shadow-md">
+            <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-brand-blue backdrop-blur supports-[backdrop-filter]:bg-brand-blue/95 dark:bg-slate-900/95 shadow-md">
                 <div className="container flex h-16 max-w-screen-2xl items-center px-4 justify-between">
-                    <div className="flex items-center gap-2 text-white">
-                        <Building2 className="h-6 w-6" />
-                        <span className="text-lg font-bold tracking-tight">Bajaj Life Insurance</span>
+                    <div className="flex items-center gap-2">
+                        <img 
+                            src="/bajaj_life.png" 
+                            alt="Bajaj Life Insurance" 
+                            className="h-10 w-auto bg-white p-1 rounded"
+                        />
                     </div>
                     <Button
                         variant="ghost"
@@ -146,56 +188,67 @@ function App() {
 
             {/* Main Content */}
             <main className="flex-1 flex items-center justify-center p-4 sm:p-8">
-                <div className="w-full max-w-[600px] min-h-[500px]">
+                <div className="w-full max-w-[700px] min-h-[500px]">
                     <AnimatePresence mode="wait">
                         {currentScreen === SCREENS.WELCOME && (
-                            <WelcomeScreen key="welcome" onStart={startQuiz} />
+                            <WelcomeScreen key="welcome" onStart={startGame} />
                         )}
 
-                        {currentScreen === SCREENS.QUESTION && (
-                            <QuestionScreen
-                                key={`question-${currentQuestionIndex}`}
-                                question={currentQuestion}
-                                currentQuestion={currentQuestionIndex + 1}
-                                totalQuestions={totalQuestions}
-                                onAnswerSelect={handleAnswerSelect}
-                                selectedAnswer={selectedAnswer}
+                        {currentScreen === SCREENS.GOAL_SELECTION && (
+                            <GoalSelectionScreen 
+                                key="goal-selection" 
+                                onProceed={handleGoalsSelected} 
                             />
                         )}
 
-                        {currentScreen === SCREENS.FEEDBACK && showFeedback && (
-                            <div key="feedback-container">
-                                <QuestionScreen
-                                    question={currentQuestion}
-                                    currentQuestion={currentQuestionIndex + 1}
-                                    totalQuestions={totalQuestions}
-                                    onAnswerSelect={() => { }}
-                                    selectedAnswer={selectedAnswer}
-                                />
-                                <FeedbackScreen
-                                    isCorrect={selectedAnswer === currentQuestion.correctAnswer}
-                                    explanation={currentQuestion.explanation}
-                                    onNext={handleNextQuestion}
-                                />
-                            </div>
+                        {currentScreen === SCREENS.ASSESSMENT && selectedGoals.length > 0 && (
+                            <GoalAssessmentScreen
+                                key={`assessment-${currentGoalIndex}-${currentQuestionIndex}`}
+                                currentGoal={selectedGoals[currentGoalIndex]}
+                                currentGoalIndex={currentGoalIndex}
+                                currentQuestionIndex={currentQuestionIndex}
+                                onAnswer={handleAnswer}
+                            />
                         )}
 
-                        {currentScreen === SCREENS.RESULTS && (
-                            <ResultsScreen
-                                key="results"
+                        {currentScreen === SCREENS.SCORE_RESULTS && (
+                            <ScoreResultsScreen
+                                key="score-results"
                                 score={score}
-                                total={totalQuestions}
-                                onRestart={handleRestart}
+                                selectedGoals={selectedGoals}
+                                onCallNow={handleCallNow}
+                                onBookSlot={handleBookSlot}
                                 onTalkToExpert={handleTalkToExpert}
                             />
                         )}
 
-                        {currentScreen === SCREENS.FORM && (
-                            <LeadCaptureForm
-                                key="form"
-                                onSubmit={handleFormSubmit}
-                                onSkip={handleSkipForm}
+                        {currentScreen === SCREENS.BOOKING && (
+                            <BookingScreen
+                                key="booking"
+                                onSubmit={handleBookingSubmit}
+                                onBack={handleBackFromBooking}
+                                selectedGoals={selectedGoals}
+                                score={score}
                             />
+                        )}
+
+                        {currentScreen === SCREENS.LEAD_FORM && (
+                            <LeadCaptureForm
+                                key="lead-form"
+                                onSubmit={handleLeadFormSubmit}
+                                onSkip={handleSkipLeadForm}
+                            />
+                        )}
+
+                        {currentScreen === SCREENS.THANK_YOU && (
+                            <div key="thank-you" className="text-center py-12">
+                                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                                    Thank You! 🎉
+                                </h2>
+                                <p className="text-gray-600 dark:text-gray-400">
+                                    We look forward to helping you achieve your life goals.
+                                </p>
+                            </div>
                         )}
                     </AnimatePresence>
                 </div>
