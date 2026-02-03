@@ -18,22 +18,31 @@ export default {
         },
         extend: {
             fontFamily: {
-                sans: ['Inter', 'sans-serif'],
+                sans: ['Inter', 'system-ui', 'sans-serif'],
+                serif: ['Georgia', 'Cambria', 'Times New Roman', 'serif'],
             },
             colors: {
-                // Brand Colors
+                // Biologica Wellness Theme Colors (Muted Brand Palette)
+                charcoal: "#2D3748",
+                cream: "#FAFAF8",
+                "soft-gray": "#E2E8F0",
+                "soft-blue": "#4A90C8", // Muted version of brand blue
+                "soft-orange": "#E89B6F", // Muted version of brand orange
+
+                // Legacy brand colors (kept for compatibility)
                 brand: {
-                    blue: "#005DAC",
-                    orange: "#FF6F00",
+                    blue: "#4A90C8",
+                    orange: "#E89B6F",
                 },
+
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
-                ring: "#005DAC",
+                ring: "hsl(var(--ring))",
                 background: "hsl(var(--background))",
                 foreground: "hsl(var(--foreground))",
                 primary: {
-                    DEFAULT: "#005DAC",
-                    foreground: "#FFFFFF",
+                    DEFAULT: "hsl(var(--primary))",
+                    foreground: "hsl(var(--primary-foreground))",
                 },
                 secondary: {
                     DEFAULT: "hsl(var(--secondary))",
@@ -64,6 +73,7 @@ export default {
                 lg: "var(--radius)",
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)",
+                full: "9999px",
             },
             keyframes: {
                 "accordion-down": {
