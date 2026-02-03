@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "./ui/card";
-import { ClipboardList } from "lucide-react";
 
 const WelcomeScreen = ({ onStart }) => {
     return (
@@ -19,21 +18,41 @@ const WelcomeScreen = ({ onStart }) => {
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.3 }}
-                            className="p-4 bg-blue-50 rounded-full"
+                            className="p-4 bg-white rounded-full shadow-lg"
                         >
-                            <ClipboardList className="w-16 h-16 text-brand-orange" />
+                            <img 
+                                src="/bajaj_life.png" 
+                                alt="Bajaj Life" 
+                                className="w-20 h-auto"
+                            />
                         </motion.div>
                     </div>
-                    <CardTitle className="text-3xl font-bold text-gray-900 mb-2">
-                        Life Insurance GST Quiz
+                    <CardTitle className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                        Life Goals Preparedness
                     </CardTitle>
                     <CardDescription className="text-lg text-brand-blue font-medium">
-                        Did you know life insurance is 0% GST?
+                        How ready are you for your important life goals?
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <p className="text-gray-600 mb-8">
-                        Test your knowledge with 5 quick questions and become a GST expert in just 2 minutes!
+                    <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 mb-6">
+                        <ul className="text-left text-gray-600 dark:text-gray-400 space-y-2 text-sm">
+                            <li className="flex items-center gap-2">
+                                <span className="w-6 h-6 bg-brand-orange/20 text-brand-orange rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                                Select your top 3 life goals
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="w-6 h-6 bg-brand-orange/20 text-brand-orange rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                                Answer 3 quick questions per goal
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="w-6 h-6 bg-brand-orange/20 text-brand-orange rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                                Get your preparedness score
+                            </li>
+                        </ul>
+                    </div>
+                    <p className="text-gray-500 dark:text-gray-400 mb-6 text-sm">
+                        Takes less than 2 minutes!
                     </p>
                     <Button
                         variant="cta"
@@ -41,7 +60,7 @@ const WelcomeScreen = ({ onStart }) => {
                         className="w-full text-lg font-bold shadow-xl hover:shadow-2xl transition-all"
                         onClick={onStart}
                     >
-                        Start Quiz 📝
+                        Start Game 🎯
                     </Button>
                 </CardContent>
             </Card>
