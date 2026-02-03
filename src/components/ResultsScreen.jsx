@@ -9,10 +9,10 @@ const ResultsScreen = ({ score, total, onRestart, onTalkToExpert }) => {
     const percentage = (score / total) * 100;
 
     const getMotivationalMessage = (pct) => {
-        if (pct === 100) return "Outstanding! You're a GST Expert! 🏆";
-        if (pct >= 80) return "Great job! You know your stuff! 🌟";
-        if (pct >= 60) return "Good effort! You're getting there! 👍";
-        return "Keep learning! Knowledge is power! 📚";
+        if (pct === 100) return "Outstanding! You're a GST Expert!";
+        if (pct >= 80) return "Great job! You know your stuff!";
+        if (pct >= 60) return "Good effort! You're getting there!";
+        return "Keep learning! Knowledge is power!";
     };
 
     return (
@@ -58,7 +58,7 @@ const ResultsScreen = ({ score, total, onRestart, onTalkToExpert }) => {
                     className="w-full text-base shadow-lg"
                     onClick={onTalkToExpert}
                 >
-                    Yes, Talk to Our Expert 💬
+                    Yes, Talk to Our Expert
                 </Button>
 
                 <Button

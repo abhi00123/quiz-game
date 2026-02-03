@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion';
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "./ui/card";
-import { ClipboardList } from "lucide-react";
-import CircularText from './CircularText';
 
 const WelcomeScreen = ({ onStart }) => {
     return (
@@ -15,26 +13,24 @@ const WelcomeScreen = ({ onStart }) => {
         >
             <Card className="text-center shadow-lg border-t-4 border-t-brand-blue">
                 <CardHeader>
-                    <div className="flex justify-center mb-4 relative">
+                    {/* Rotating Badge */}
+                    <div className="flex justify-center mb-4">
                         <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.3 }}
-                            className="relative w-[200px] h-[200px]"
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.3 }}
+                            className="relative"
                         >
-                            {/* Blue Circle Background with Icon */}
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="w-24 h-24 bg-bajaj-blue rounded-full flex items-center justify-center shadow-lg">
-                                    <ClipboardList className="w-12 h-12 text-white" />
-                                </div>
-                            </div>
-
-                            {/* Circular Rotating Text */}
-                            <CircularText
-                                text="BAJAJ LIFE • INSURANCE • "
-                                onHover="speedUp"
-                                spinDuration={15}
-                                className="w-full h-full text-bajaj-blue"
+                            <motion.img
+                                src="/bajaj-badge.png"
+                                alt="100% Bajaj - Made in India"
+                                className="w-28 h-28 object-contain"
+                                animate={{ rotate: 360 }}
+                                transition={{
+                                    duration: 20,
+                                    repeat: Infinity,
+                                    ease: "linear"
+                                }}
                             />
                         </motion.div>
                     </div>
@@ -55,7 +51,7 @@ const WelcomeScreen = ({ onStart }) => {
                         className="w-full text-lg font-bold shadow-xl hover:shadow-2xl transition-all"
                         onClick={onStart}
                     >
-                        Start Quiz 📝
+                        Start Quiz
                     </Button>
                 </CardContent>
             </Card>
