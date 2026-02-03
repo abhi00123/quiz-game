@@ -5,6 +5,7 @@ import QuestionScreen from './components/QuestionScreen';
 import FeedbackScreen from './components/FeedbackScreen';
 import ResultsScreen from './components/ResultsScreen';
 import LeadCaptureForm from './components/LeadCaptureForm';
+import ThankYouScreen from './components/ThankYouScreen';
 import SuccessToast from './components/SuccessToast';
 import quizQuestions from './data/questions';
 import { useSound } from './hooks/useSound';
@@ -32,6 +33,7 @@ function App() {
     const [showFeedback, setShowFeedback] = useState(false);
     const [showSuccessToast, setShowSuccessToast] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+    const [userName, setUserName] = useState('');
 
     const { playSound } = useSound();
     const [highScore, setHighScore] = useLocalStorage('quizHighScore', 0);
@@ -115,15 +117,9 @@ function App() {
         console.log('Form submitted:', formData);
         playSound('success');
 
-        // Show success toast
-        setSuccessMessage(`Thank you, ${formData.name}! Our expert will contact you soon.`);
-        setShowSuccessToast(true);
-
-        // Hide toast and restart after 2 seconds
-        setTimeout(() => {
-            setShowSuccessToast(false);
-            handleRestart();
-        }, 2000);
+        // Store user name and show thank you screen
+        setUserName(formData.name);
+        setCurrentScreen(SCREENS.THANK_YOU);
     };
 
     const handleSkipForm = () => {
@@ -192,6 +188,14 @@ function App() {
                                 key="form"
                                 onSubmit={handleFormSubmit}
                                 onSkip={handleSkipForm}
+                            />
+                        )}
+
+                        {currentScreen === SCREENS.THANK_YOU && (
+                            <ThankYouScreen
+                                key="thankyou"
+                                userName={userName}
+                                onRestart={handleRestart}
                             />
                         )}
                     </AnimatePresence>

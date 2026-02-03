@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "./ui/card";
 import { ClipboardList } from "lucide-react";
+import CircularText from './CircularText';
 
 const WelcomeScreen = ({ onStart }) => {
     return (
@@ -14,14 +15,27 @@ const WelcomeScreen = ({ onStart }) => {
         >
             <Card className="text-center shadow-lg border-t-4 border-t-brand-blue">
                 <CardHeader>
-                    <div className="flex justify-center mb-4">
+                    <div className="flex justify-center mb-4 relative">
                         <motion.div
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.3 }}
-                            className="p-4 bg-blue-50 rounded-full"
+                            className="relative w-[200px] h-[200px]"
                         >
-                            <ClipboardList className="w-16 h-16 text-brand-orange" />
+                            {/* Blue Circle Background with Icon */}
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="w-24 h-24 bg-bajaj-blue rounded-full flex items-center justify-center shadow-lg">
+                                    <ClipboardList className="w-12 h-12 text-white" />
+                                </div>
+                            </div>
+
+                            {/* Circular Rotating Text */}
+                            <CircularText
+                                text="BAJAJ LIFE • INSURANCE • "
+                                onHover="speedUp"
+                                spinDuration={15}
+                                className="w-full h-full text-bajaj-blue"
+                            />
                         </motion.div>
                     </div>
                     <CardTitle className="text-3xl font-bold text-gray-900 mb-2">
