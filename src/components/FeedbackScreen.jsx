@@ -8,7 +8,7 @@ const FeedbackScreen = ({ isCorrect, explanation, onNext }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             onNext();
-        }, 3500); // Auto-advance
+        }, 1000); // Auto-advance after 1 second
         return () => clearTimeout(timer);
     }, [onNext]);
 
@@ -47,7 +47,7 @@ const FeedbackScreen = ({ isCorrect, explanation, onNext }) => {
                                 className="h-full bg-gray-400"
                                 initial={{ width: "0%" }}
                                 animate={{ width: "100%" }}
-                                transition={{ duration: 3.5, ease: "linear" }}
+                                transition={{ duration: 1, ease: "linear" }}
                             />
                         </div>
                     </CardContent>

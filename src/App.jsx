@@ -5,12 +5,13 @@ import QuestionScreen from './components/QuestionScreen';
 import FeedbackScreen from './components/FeedbackScreen';
 import ResultsScreen from './components/ResultsScreen';
 import LeadCaptureForm from './components/LeadCaptureForm';
+import SuccessToast from './components/SuccessToast';
 import quizQuestions from './data/questions';
 import { useSound } from './hooks/useSound';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useTheme } from './hooks/useTheme';
 import { Button } from "./components/ui/button";
-import { Building2, Sun, Moon } from "lucide-react";
+import { Building2 } from "lucide-react";
 import './index.css';
 
 const SCREENS = {
@@ -29,6 +30,8 @@ function App() {
     const [userAnswers, setUserAnswers] = useState([]);
     const [score, setScore] = useState(0);
     const [showFeedback, setShowFeedback] = useState(false);
+    const [showSuccessToast, setShowSuccessToast] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
 
     const { playSound } = useSound();
     const [highScore, setHighScore] = useLocalStorage('quizHighScore', 0);
@@ -111,12 +114,16 @@ function App() {
     const handleFormSubmit = (formData) => {
         console.log('Form submitted:', formData);
         playSound('success');
-        setCurrentScreen(SCREENS.THANK_YOU);
 
+        // Show success toast
+        setSuccessMessage(`Thank you, ${formData.name}! Our expert will contact you soon.`);
+        setShowSuccessToast(true);
+
+        // Hide toast and restart after 2 seconds
         setTimeout(() => {
-            alert(`Thank you, ${formData.name}! Our expert will contact you at ${formData.phone} ${formData.preferredTime}.`);
+            setShowSuccessToast(false);
             handleRestart();
-        }, 1000);
+        }, 2000);
     };
 
     const handleSkipForm = () => {
@@ -125,22 +132,12 @@ function App() {
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans transition-colors duration-300">
-            {/* Header */}
-            <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-brand-blue/95 backdrop-blur supports-[backdrop-filter]:bg-brand-blue/60 dark:bg-slate-900/95 shadow-md">
-                <div className="container flex h-16 max-w-screen-2xl items-center px-4 justify-between">
+            <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-bajaj-blue backdrop-blur supports-[backdrop-filter]:bg-bajaj-blue/95 shadow-md">
+                <div className="container flex h-16 max-w-screen-2xl items-center px-4 justify-center">
                     <div className="flex items-center gap-2 text-white">
                         <Building2 className="h-6 w-6" />
                         <span className="text-lg font-bold tracking-tight">Bajaj Life Insurance</span>
                     </div>
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="text-white hover:bg-white/20 hover:text-white rounded-full transition-colors"
-                        onClick={toggleTheme}
-                        title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-                    >
-                        {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-                    </Button>
                 </div>
             </header>
 
@@ -200,6 +197,14 @@ function App() {
                     </AnimatePresence>
                 </div>
             </main>
+
+            {/* Success Toast Notification */}
+            {showSuccessToast && (
+                <SuccessToast
+                    message={successMessage}
+                    onClose={() => setShowSuccessToast(false)}
+                />
+            )}
         </div>
     );
 }

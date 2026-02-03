@@ -22,17 +22,21 @@ export default {
                 serif: ['Georgia', 'Cambria', 'Times New Roman', 'serif'],
             },
             colors: {
-                // Biologica Wellness Theme Colors (Muted Brand Palette)
+                // Bajaj Life Insurance Brand Colors (Exact)
                 charcoal: "#2D3748",
-                cream: "#FAFAF8",
+                cream: "#FFFFFF",
                 "soft-gray": "#E2E8F0",
-                "soft-blue": "#4A90C8", // Muted version of brand blue
-                "soft-orange": "#E89B6F", // Muted version of brand orange
+                "bajaj-blue": "#0066B2", // Exact Bajaj Blue
+                "bajaj-orange": "#FF6600", // Exact Bajaj Orange
 
-                // Legacy brand colors (kept for compatibility)
+                // Alias for compatibility
+                "soft-blue": "#0066B2",
+                "soft-orange": "#FF6600",
+
+                // Legacy brand colors (updated to exact)
                 brand: {
-                    blue: "#4A90C8",
-                    orange: "#E89B6F",
+                    blue: "#0066B2",
+                    orange: "#FF6600",
                 },
 
                 border: "hsl(var(--border))",
