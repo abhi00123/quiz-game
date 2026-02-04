@@ -87,7 +87,7 @@ const ResultsScreen = ({ score, total, onRestart, onTalkToExpert, shieldBroken =
                     </div>
                 )}
 
-                <h2 className="text-2xl font-black text-brand-blue mb-1 uppercase tracking-tight">
+                <h2 className="text-2xl font-black text-brand-blue mb-1 uppercase tracking-tight leading-tight">
                     {getResultTitle(score, shieldBroken)}
                 </h2>
                 <div className={`${shieldBroken ? 'bg-amber-500' : 'bg-brand-orange'} text-white text-xs font-bold py-1 px-3 inline-block mb-4 uppercase tracking-wider`}>

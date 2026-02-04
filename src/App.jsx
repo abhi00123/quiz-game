@@ -31,7 +31,8 @@ const QuizGame = () => {
     } = useQuiz();
 
     return (
-        <div className="h-screen bg-slate-50 flex flex-col font-sans transition-colors duration-300 overflow-hidden">
+        <div className="h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans transition-colors duration-300 overflow-hidden">
+            {/* Main Content */}
             <main className="flex-1 flex items-center justify-center p-3 overflow-y-auto">
                 <div className="w-full max-w-[600px]">
                     <AnimatePresence mode="wait">
