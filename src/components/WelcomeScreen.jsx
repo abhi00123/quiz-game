@@ -1,6 +1,4 @@
 import { motion } from 'framer-motion';
-import { Button } from "./ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "./ui/card";
 import { ClipboardList } from "lucide-react";
 import CircularText from './CircularText';
 
@@ -8,57 +6,56 @@ const WelcomeScreen = ({ onStart }) => {
     return (
         <motion.div
             className="w-full max-w-md mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.3 }}
         >
-            <Card className="text-center shadow-lg border-t-4 border-t-brand-blue">
-                <CardHeader>
-                    <div className="flex justify-center mb-4 relative">
-                        <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.3 }}
-                            className="relative w-[200px] h-[200px]"
-                        >
-                            {/* Blue Circle Background with Icon */}
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="w-24 h-24 bg-bajaj-blue rounded-full flex items-center justify-center shadow-lg">
-                                    <ClipboardList className="w-12 h-12 text-white" />
-                                </div>
-                            </div>
-
-                            {/* Circular Rotating Text */}
-                            <CircularText
-                                text="BAJAJ LIFE • INSURANCE • "
-                                onHover="speedUp"
-                                spinDuration={15}
-                                className="w-full h-full text-bajaj-blue"
-                            />
-                        </motion.div>
-                    </div>
-                    <CardTitle className="text-3xl font-bold text-gray-900 mb-2">
-                        Life Insurance GST Quiz
-                    </CardTitle>
-                    <CardDescription className="text-lg text-brand-blue font-medium">
-                        Did you know life insurance is 0% GST?
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-gray-600 mb-8">
-                        Test your knowledge with 5 quick questions and become a GST expert in just 2 minutes!
-                    </p>
-                    <Button
-                        variant="cta"
-                        size="xl"
-                        className="w-full text-lg font-bold shadow-xl hover:shadow-2xl transition-all"
-                        onClick={onStart}
+            <div className="game-board text-center">
+                <div className="flex justify-center mb-6 relative">
+                    <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.3 }}
+                        className="relative w-[200px] h-[200px]"
                     >
-                        Start Quiz 📝
-                    </Button>
-                </CardContent>
-            </Card>
+                        {/* Blue Circle Background with Icon */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-24 h-24 bg-brand-blue rounded-full flex items-center justify-center shadow-lg">
+                                <ClipboardList className="w-12 h-12 text-white" />
+                            </div>
+                        </div>
+
+                        {/* Circular Rotating Text */}
+                        <CircularText
+                            text="BAJAJ LIFE • INSURANCE • "
+                            onHover="speedUp"
+                            spinDuration={15}
+                            className="w-full h-full text-brand-blue"
+                        />
+                    </motion.div>
+                </div>
+
+                <h1 className="text-3xl font-black text-brand-blue mb-2 uppercase tracking-tight">
+                    Life Insurance<br />GST Quiz
+                </h1>
+
+                <div className="bg-blue-50 border-2 border-brand-blue p-4 mb-8">
+                    <p className="text-lg text-brand-orange font-bold mb-2">
+                        Did you know?
+                    </p>
+                    <p className="text-gray-700 font-medium">
+                        Life insurance attracts 0% GST! Test your knowledge now.
+                    </p>
+                </div>
+
+                <button
+                    onClick={onStart}
+                    className="w-full game-btn-orange text-xl shadow-[4px_4px_0px_0px_rgba(194,65,12,1)] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(194,65,12,1)] active:translate-y-[2px] active:shadow-none transition-all"
+                >
+                    Start Game 🎮
+                </button>
+            </div>
         </motion.div>
     );
 };

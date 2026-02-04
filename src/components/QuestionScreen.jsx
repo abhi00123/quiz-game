@@ -1,6 +1,4 @@
 import { motion } from 'framer-motion';
-import { Button } from "./ui/button";
-import { Card, CardContent } from "./ui/card";
 import QuestionStepper from './QuestionStepper';
 
 const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSelect, selectedAnswer }) => {
@@ -12,39 +10,46 @@ const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSel
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.4 }}
         >
-            {/* Question Stepper */}
-            <QuestionStepper currentQuestion={currentQuestion} totalQuestions={totalQuestions} />
+            {/* Question Stepper - Will need to align this style if not already sharp */}
+            <div className="mb-4">
+                <QuestionStepper currentQuestion={currentQuestion} totalQuestions={totalQuestions} />
+            </div>
 
-            <Card className="shadow-md border-0 bg-white">
-                <CardContent className="p-3 sm:p-6">
-                    <h2 className="text-base sm:text-xl font-bold text-gray-800 mb-3 sm:mb-6 leading-relaxed">
+            <div className="game-board">
+                {/* Question Text Area */}
+                <div className="bg-blue-50 border-l-4 border-brand-orange p-4 mb-6">
+                    <h2 className="text-lg sm:text-xl font-bold text-gray-900 leading-relaxed">
                         {question.question}
                     </h2>
+                </div>
 
-                    <div className="space-y-2 sm:space-y-3">
-                        {question.options.map((option, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                            >
-                                <Button
-                                    variant={selectedAnswer === index ? "brand" : "outline"}
-                                    className={`w-full justify-start text-left h-auto py-2.5 sm:py-4 px-3 sm:px-6 text-sm sm:text-base whitespace-normal ${selectedAnswer === index
-                                        ? "ring-2 ring-bajaj-blue ring-offset-2"
-                                        : "hover:border-bajaj-blue hover:text-bajaj-blue hover:bg-blue-50"
-                                        }`}
-                                    onClick={() => onAnswerSelect(index)}
-                                >
-                                    <span className="mr-2 sm:mr-3 font-bold opacity-70">{index + 1}.</span>
-                                    {option}
-                                </Button>
-                            </motion.div>
-                        ))}
-                    </div>
-                </CardContent>
-            </Card>
+                <div className="space-y-3">
+                    {question.options.map((option, index) => (
+                        <motion.button
+                            key={index}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            onClick={() => onAnswerSelect(index)}
+                            disabled={selectedAnswer !== null}
+                            className={`game-option flex items-center group ${selectedAnswer === index
+                                    ? 'selected ring-2 ring-brand-orange ring-offset-2 ring-offset-white'
+                                    : ''
+                                }`}
+                        >
+                            <span className={`
+                                flex items-center justify-center w-8 h-8 mr-4 font-bold border-2 transition-colors
+                                ${selectedAnswer === index
+                                    ? 'bg-white text-brand-blue border-white'
+                                    : 'bg-brand-blue text-white border-brand-blue group-hover:bg-brand-orange group-hover:border-brand-orange'}
+                            `}>
+                                {String.fromCharCode(65 + index)}
+                            </span>
+                            <span className="flex-1 text-left font-medium">{option}</span>
+                        </motion.button>
+                    ))}
+                </div>
+            </div>
         </motion.div>
     );
 };

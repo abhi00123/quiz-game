@@ -4,7 +4,7 @@ import { Progress } from "./ui/progress";
 
 const ScoreCard = ({ score, total, percentage }) => {
     return (
-        <Card className="bg-gradient-to-br from-brand-blue to-blue-700 text-white border-0 shadow-xl mb-4">
+        <div className="bg-brand-blue text-white border-4 border-blue-900 shadow-lg mb-6">
             <CardContent className="p-5">
                 <div className="text-4xl font-bold mb-1 leading-none">
                     {score}<span className="text-xl opacity-60">/{total}</span>
@@ -19,9 +19,9 @@ const ScoreCard = ({ score, total, percentage }) => {
                         <span>{Math.round(percentage)}%</span>
                     </div>
                     {/* Custom progress specifically for the dark card context */}
-                    <div className="h-2 w-full bg-black/20 rounded-full overflow-hidden">
+                    <div className="h-4 w-full bg-blue-900/50 overflow-hidden border border-blue-400/30">
                         <motion.div
-                            className="h-full bg-brand-orange rounded-full"
+                            className="h-full bg-brand-orange"
                             initial={{ width: 0 }}
                             animate={{ width: `${percentage}%` }}
                             transition={{ duration: 1, ease: "easeOut" }}
@@ -29,7 +29,7 @@ const ScoreCard = ({ score, total, percentage }) => {
                     </div>
                 </div>
             </CardContent>
-        </Card>
+        </div>
     );
 };
 

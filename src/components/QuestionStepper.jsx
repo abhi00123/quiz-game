@@ -15,11 +15,11 @@ const QuestionStepper = ({ currentQuestion, totalQuestions }) => {
                             {/* Step Circle */}
                             <div
                                 className={`
-                                    flex items-center justify-center w-7 h-7 sm:w-10 sm:h-10 rounded-full font-semibold text-xs sm:text-sm
+                                    flex items-center justify-center w-7 h-7 sm:w-10 sm:h-10 font-bold text-xs sm:text-sm border-2
                                     transition-all duration-300
-                                    ${isCompleted ? 'bg-bajaj-blue text-white' : ''}
-                                    ${isCurrent ? 'bg-bajaj-blue text-white ring-2 sm:ring-4 ring-bajaj-blue/30' : ''}
-                                    ${isUpcoming ? 'bg-gray-600 text-gray-300' : ''}
+                                    ${isCompleted ? 'bg-brand-blue text-white border-brand-blue' : ''}
+                                    ${isCurrent ? 'bg-brand-blue text-white border-brand-orange ring-2 ring-brand-orange ring-offset-2 ring-offset-white' : ''}
+                                    ${isUpcoming ? 'bg-white text-gray-400 border-gray-300' : ''}
                                 `}
                             >
                                 {isCompleted ? (
