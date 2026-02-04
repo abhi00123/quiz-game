@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import QuizProgressBar from './QuizProgressBar';
 
-const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSelect, selectedAnswer, wrongAnswers = 0, shieldBroken = false }) => {
+const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSelect, selectedAnswer }) => {
     return (
         <motion.div
             className="w-full max-w-lg mx-auto"
@@ -15,68 +15,7 @@ const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSel
                 <QuizProgressBar currentQuestion={currentQuestion} totalQuestions={totalQuestions} />
             </div>
 
-            {/* Shield Status Bar */}
-            <div className="flex justify-center items-center mb-4 px-3 py-2 bg-white rounded-lg shadow-sm border border-gray-100">
-                {/* Shield */}
-                <div className="flex items-center gap-2">
-                    <div className="relative w-8 h-8">
-                        {/* Shield Image */}
-                        <motion.img
-                            src="/assets/shield-blue.png"
-                            alt="Shield"
-                            className="w-8 h-8 object-contain"
-                            animate={{
-                                opacity: shieldBroken ? 0.6 : 1,
-                                scale: wrongAnswers > 0 && !shieldBroken ? [1, 0.9, 1] : 1
-                            }}
-                            transition={{ duration: 0.3 }}
-                        />
-                        {/* Zig-zag Crack Overlay */}
-                        {shieldBroken && (
-                            <motion.svg
-                                initial={{ pathLength: 0, opacity: 0 }}
-                                animate={{ pathLength: 1, opacity: 1 }}
-                                transition={{ duration: 0.5, ease: "easeOut" }}
-                                className="absolute inset-0 w-8 h-8"
-                                viewBox="0 0 32 32"
-                                fill="none"
-                            >
-                                <motion.path
-                                    d="M16 2 L14 8 L18 12 L13 18 L17 22 L15 30"
-                                    stroke="#dc2626"
-                                    strokeWidth="2.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    initial={{ pathLength: 0 }}
-                                    animate={{ pathLength: 1 }}
-                                    transition={{ duration: 0.5, ease: "easeOut" }}
-                                />
-                            </motion.svg>
-                        )}
-                    </div>
-                    <div className="flex items-center gap-1">
-                        {[...Array(3)].map((_, index) => (
-                            <motion.span
-                                key={index}
-                                initial={{ scale: 1 }}
-                                animate={{
-                                    scale: index < wrongAnswers ? 1 : 0.8,
-                                    opacity: index < wrongAnswers ? 1 : 0.3
-                                }}
-                                transition={{ duration: 0.3 }}
-                                className={`text-2xl ${index < wrongAnswers ? 'text-red-600' : 'text-gray-300'}`}
-                                style={{
-                                    fontWeight: 900,
-                                    WebkitTextStroke: index < wrongAnswers ? '1px #b91c1c' : '0.5px #9ca3af',
-                                    letterSpacing: '-2px'
-                                }}
-                            >
-                                ✕
-                            </motion.span>
-                        ))}
-                    </div>
-                </div>
-            </div>
+
 
             <div className="game-board">
                 {/* Question Text Area */}

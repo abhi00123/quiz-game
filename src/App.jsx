@@ -4,7 +4,7 @@ import WelcomeScreen from './components/WelcomeScreen';
 import QuestionScreen from './components/QuestionScreen';
 import FeedbackScreen from './components/FeedbackScreen';
 import ResultsScreen from './components/ResultsScreen';
-import LeadCaptureForm from './components/LeadCaptureForm';
+
 import ThankYouScreen from './components/ThankYouScreen';
 import './index.css';
 
@@ -16,8 +16,6 @@ const QuizGame = () => {
         currentQuestionIndex,
         totalQuestions,
         selectedAnswer,
-        wrongAnswers,
-        shieldBroken,
         showFeedback,
         score,
         userName,
@@ -25,9 +23,6 @@ const QuizGame = () => {
         handleAnswerSelect,
         handleNextQuestion,
         handleRestart,
-        handleTalkToExpert,
-        handleFormSubmit,
-        handleSkipForm
     } = useQuiz();
 
     return (
@@ -48,8 +43,6 @@ const QuizGame = () => {
                                 totalQuestions={totalQuestions}
                                 onAnswerSelect={handleAnswerSelect}
                                 selectedAnswer={selectedAnswer}
-                                wrongAnswers={wrongAnswers}
-                                shieldBroken={shieldBroken}
                             />
                         )}
 
@@ -61,14 +54,11 @@ const QuizGame = () => {
                                     totalQuestions={totalQuestions}
                                     onAnswerSelect={() => { }}
                                     selectedAnswer={selectedAnswer}
-                                    wrongAnswers={wrongAnswers}
-                                    shieldBroken={shieldBroken}
                                 />
                                 <FeedbackScreen
                                     isCorrect={currentQuestion.options[selectedAnswer] === currentQuestion.correctAnswer}
                                     explanation={currentQuestion.explanation}
                                     onNext={handleNextQuestion}
-                                    shieldBroken={shieldBroken}
                                 />
                             </div>
                         )}
@@ -79,16 +69,6 @@ const QuizGame = () => {
                                 score={score}
                                 total={totalQuestions}
                                 onRestart={handleRestart}
-                                onTalkToExpert={handleTalkToExpert}
-                                shieldBroken={shieldBroken}
-                            />
-                        )}
-
-                        {currentScreen === SCREENS.FORM && (
-                            <LeadCaptureForm
-                                key="form"
-                                onSubmit={handleFormSubmit}
-                                onSkip={handleSkipForm}
                             />
                         )}
 

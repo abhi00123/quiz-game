@@ -9,7 +9,6 @@ export const SCREENS = {
     QUESTION: 'question',
     FEEDBACK: 'feedback',
     RESULTS: 'results',
-    FORM: 'form',
     THANK_YOU: 'thank_you'
 };
 
@@ -25,8 +24,6 @@ export const QuizProvider = ({ children }) => {
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [userAnswers, setUserAnswers] = useState([]);
     const [score, setScore] = useState(0);
-    const [wrongAnswers, setWrongAnswers] = useState(0);
-    const [shieldBroken, setShieldBroken] = useState(false);
     const [showFeedback, setShowFeedback] = useState(false);
     const [userName, setUserName] = useState('');
 
@@ -45,8 +42,6 @@ export const QuizProvider = ({ children }) => {
         setCurrentScreen(SCREENS.QUESTION);
         setCurrentQuestionIndex(0);
         setScore(0);
-        setWrongAnswers(0);
-        setShieldBroken(false);
         setUserAnswers([]);
         setSelectedAnswer(null);
         playSound('start');
@@ -63,13 +58,6 @@ export const QuizProvider = ({ children }) => {
             setScore(prev => prev + 1);
             playSound('correct');
         } else {
-            setWrongAnswers(prev => {
-                const newWrongAnswers = prev + 1;
-                if (newWrongAnswers >= 3) {
-                    setShieldBroken(true);
-                }
-                return newWrongAnswers;
-            });
             playSound('incorrect');
         }
 
@@ -109,27 +97,12 @@ export const QuizProvider = ({ children }) => {
         setCurrentScreen(SCREENS.WELCOME);
         setCurrentQuestionIndex(0);
         setScore(0);
-        setWrongAnswers(0);
-        setShieldBroken(false);
         setUserAnswers([]);
         setSelectedAnswer(null);
         setShowFeedback(false);
     }, []);
 
-    const handleTalkToExpert = useCallback(() => {
-        setCurrentScreen(SCREENS.FORM);
-    }, []);
 
-    const handleFormSubmit = useCallback((formData) => {
-        console.log('Form submitted:', formData);
-        playSound('success');
-        setUserName(formData.name);
-        setCurrentScreen(SCREENS.THANK_YOU);
-    }, [playSound]);
-
-    const handleSkipForm = useCallback(() => {
-        handleRestart();
-    }, [handleRestart]);
 
     // Context value
     const value = {
@@ -142,8 +115,6 @@ export const QuizProvider = ({ children }) => {
         selectedAnswer,
         userAnswers,
         score,
-        wrongAnswers,
-        shieldBroken,
         showFeedback,
         userName,
         highScore,
@@ -153,9 +124,6 @@ export const QuizProvider = ({ children }) => {
         handleAnswerSelect,
         handleNextQuestion,
         handleRestart,
-        handleTalkToExpert,
-        handleFormSubmit,
-        handleSkipForm
     };
 
     return (

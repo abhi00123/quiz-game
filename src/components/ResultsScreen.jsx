@@ -1,14 +1,118 @@
-import { motion } from 'framer-motion';
-import { Trophy, MessageCircle, RotateCcw, AlertTriangle } from "lucide-react";
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Trophy, MessageCircle, RotateCcw, AlertTriangle, Phone, ChevronDown, ChevronUp, CheckCircle2 } from "lucide-react";
 import ScoreCard from './ScoreCard';
 import Confetti from './Confetti';
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { isValidPhone } from '../utils/helpers';
 
-const ResultsScreen = ({ score, total, onRestart, onTalkToExpert, shieldBroken = false }) => {
+// API function to submit to Bajaj LMS
+const submitToLMS = async (data) => {
+    const apiUrl = "https://webpartner.bajajallianz.com/EurekaWSNew/service/pushData";
+    const fullPayload = {
+        name: data.name,
+        mobile_no: data.mobile_no,
+        email_id: "",
+        p_user_eml: "",
+        age: "",
+        goal_name: "",
+        param1: "",
+        param2: "",
+        param3: "",
+        param4: "",
+        param5: "",
+        param13: "",
+        param18: "",
+        param19: "",
+        param20: "",
+        param23: "",
+        param24: "",
+        param25: "",
+        param26: "",
+        param28: "",
+        param29: "",
+        param30: "",
+        param36: "ONLINE_SALES",
+        summary_dtls: "",
+        p_data_source: "WS_BUY_GAME1",
+        p_curr_page_path: "",
+        p_ip_addsr: "",
+        p_remark_url: "",
+        prodId: "",
+        medium: "",
+        contact_number: "",
+        content: "",
+        campaign: "",
+        source: "",
+        keyword: "",
+        flag: "",
+        parameter: "",
+        name1: ""
+    };
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json",
+                "Origin": "https://www.bajajlifeinsurance.com",
+                "Referer": "https://www.bajajlifeinsurance.com/"
+            },
+            body: JSON.stringify(fullPayload)
+        });
+        return await response.json();
+    } catch (error) {
+        console.error('❌ API Error:', error);
+        throw error;
+    }
+};
+
+const ResultsScreen = ({ score, total, onRestart }) => {
     const percentage = (score / total) * 100;
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [formData, setFormData] = useState({ name: '', mobile: '' });
+    const [errors, setErrors] = useState({});
+
+    const handleInputChange = (field, value) => {
+        setFormData(prev => ({ ...prev, [field]: value }));
+        if (errors[field]) setErrors(prev => ({ ...prev, [field]: '' }));
+    };
+
+    const validateForm = () => {
+        const newErrors = {};
+        if (!formData.name.trim()) newErrors.name = 'Name is required';
+        if (!formData.mobile.trim()) {
+            newErrors.mobile = 'Mobile is required';
+        } else if (!isValidPhone(formData.mobile)) {
+            newErrors.mobile = 'Enter valid 10-digit number';
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        if (!validateForm()) return;
+        setIsLoading(true);
+        try {
+            await submitToLMS({
+                name: formData.name.trim(),
+                mobile_no: formData.mobile.trim()
+            });
+            setIsSubmitted(true);
+        } catch (error) {
+            setErrors({ submit: 'Failed to submit. Try again.' });
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     // Custom title based on score
-    const getResultTitle = (currentScore, broken) => {
-        if (broken) return "Shield Broken!";
+    const getResultTitle = (currentScore) => {
         if (currentScore === 5) return "YOU ARE A GST EXPERT";
         if (currentScore === 4) return "Almost There!";
         if (currentScore === 3) return "Good Progress!";
@@ -18,8 +122,7 @@ const ResultsScreen = ({ score, total, onRestart, onTalkToExpert, shieldBroken =
     };
 
     // Custom motivational message based on score
-    const getMotivationalMessage = (currentScore, broken) => {
-        if (broken) return "Your shield broke, but don't give up!";
+    const getMotivationalMessage = (currentScore) => {
         if (currentScore === 5) return "Outstanding! Perfect score! You know everything about GST!";
         if (currentScore === 4) return "Almost perfect! You're nearly an expert.";
         if (currentScore === 3) return "Halfway there! Good understanding of the basics.";
@@ -35,109 +138,118 @@ const ResultsScreen = ({ score, total, onRestart, onTalkToExpert, shieldBroken =
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
         >
-            {percentage >= 40 && !shieldBroken && <Confetti />}
+            {percentage >= 40 && <Confetti />}
 
             <div className="game-board py-4 px-6">
-                {/* Broken Shield Display */}
-                {shieldBroken ? (
-                    <div className="mb-4 flex justify-center">
-                        <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                            className="relative w-20 h-20"
-                        >
-                            {/* Shield Image */}
-                            <img
-                                src="/assets/shield-blue.png"
-                                alt="Shield"
-                                className="w-20 h-20 object-contain opacity-60"
-                            />
-                            {/* Zig-zag Crack Overlay */}
-                            <motion.svg
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 0.3, delay: 0.3 }}
-                                className="absolute inset-0 w-20 h-20"
-                                viewBox="0 0 80 80"
-                                fill="none"
-                            >
-                                <motion.path
-                                    d="M40 5 L36 20 L44 30 L34 45 L44 55 L38 75"
-                                    stroke="#dc2626"
-                                    strokeWidth="4"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    initial={{ pathLength: 0 }}
-                                    animate={{ pathLength: 1 }}
-                                    transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-                                />
-                            </motion.svg>
-                        </motion.div>
-                    </div>
-                ) : (
-                    <div className="mb-4 flex justify-center">
-                        <motion.div
-                            animate={{ rotate: [0, -5, 5, -5, 5, 0] }}
-                            transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                            className="p-3 bg-blue-50 border-4 border-brand-orange shadow-[4px_4px_0px_0px_rgba(245,130,32,0.3)]"
-                        >
-                            <Trophy className="w-12 h-12 text-brand-orange" strokeWidth={1.5} />
-                        </motion.div>
-                    </div>
-                )}
+                <div className="mb-4 flex justify-center">
+                    <motion.div
+                        animate={{ rotate: [0, -5, 5, -5, 5, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                        className="p-3 bg-blue-50 border-4 border-brand-orange shadow-[4px_4px_0px_0px_rgba(245,130,32,0.3)]"
+                    >
+                        <Trophy className="w-12 h-12 text-brand-orange" strokeWidth={1.5} />
+                    </motion.div>
+                </div>
 
                 <h2 className="text-2xl font-black text-brand-blue mb-1 uppercase tracking-tight leading-tight">
-                    {getResultTitle(score, shieldBroken)}
+                    {getResultTitle(score)}
                 </h2>
-                <div className={`${shieldBroken ? 'bg-amber-500' : 'bg-brand-orange'} text-white text-xs font-bold py-1 px-3 inline-block mb-4 uppercase tracking-wider`}>
-                    {getMotivationalMessage(score, shieldBroken)}
+                <div className="bg-brand-orange text-white text-xs font-bold py-1 px-3 inline-block mb-4 uppercase tracking-wider">
+                    {getMotivationalMessage(score)}
                 </div>
 
                 <ScoreCard score={score} total={total} percentage={percentage} />
 
-                {/* Expert Contact Section - Emphasized when shield is broken */}
-                <div className={`${shieldBroken ? 'bg-amber-50 border-amber-400' : 'bg-blue-50 border-brand-blue'} border-2 p-3 mb-4 text-left relative`}>
-                    <div className={`absolute -top-3 -right-3 ${shieldBroken ? 'bg-amber-500' : 'bg-brand-orange'} text-white text-[10px] font-bold px-2 py-0.5 rotate-3`}>
-                        {shieldBroken ? 'RECOMMENDED' : 'EXPERT HELP'}
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <div className={`p-2 bg-white border-2 ${shieldBroken ? 'border-amber-400' : 'border-brand-blue'} flex-shrink-0`}>
-                            {shieldBroken ? (
-                                <AlertTriangle className="w-5 h-5 text-amber-500" />
-                            ) : (
-                                <MessageCircle className="w-5 h-5 text-brand-blue" />
-                            )}
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-gray-900 uppercase tracking-wide text-xs">
-                                {shieldBroken ? 'Get Expert Guidance!' : 'Have GST Questions?'}
-                            </h4>
-                            <p className="text-xs text-gray-600 font-medium">
-                                {shieldBroken ? 'Learn more about Life Insurance & GST.' : 'Clarify doubts instantly.'}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="space-y-3">
-                    <motion.button
-                        onClick={onTalkToExpert}
-                        className={`w-full ${shieldBroken ? 'game-btn bg-amber-500 text-white border-amber-600 hover:bg-amber-600' : 'game-btn-orange'} text-lg shadow-[4px_4px_0px_0px_rgba(194,65,12,1)] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(194,65,12,1)] active:translate-y-[2px] active:shadow-none transition-all`}
-                        animate={shieldBroken ? { scale: [1, 1.02, 1] } : {}}
-                        transition={{ duration: 1.5, repeat: Infinity }}
+                <div className="mt-6 space-y-3">
+                    {/* Call Button */}
+                    <a
+                        href="tel:18002097272"
+                        className="w-full game-btn-orange text-lg flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_rgba(194,65,12,1)]"
                     >
-                        Talk to Expert
-                    </motion.button>
+                        <Phone className="w-5 h-5 flex-shrink-0" />
+                        <span>CALL US NOW</span>
+                    </a>
+
+                    {/* OR Separator */}
+                    <div className="flex items-center gap-3 my-2">
+                        <div className="h-[2px] flex-1 bg-brand-blue/10"></div>
+                        <span className="text-[10px] font-black text-brand-blue/40 tracking-widest uppercase">OR</span>
+                        <div className="h-[2px] flex-1 bg-brand-blue/10"></div>
+                    </div>
+
+                    {/* Talk to Expert Collapsible */}
+                    <div className="overflow-hidden transition-all duration-300">
+                        <button
+                            onClick={() => setIsExpanded(!isExpanded)}
+                            className="w-full game-btn text-lg flex items-center justify-center gap-2 shadow-[4px_4px_0px_0px_rgba(30,58,138,1)] active:translate-y-[2px] active:shadow-none transition-all"
+                        >
+                            <MessageCircle className="w-5 h-5 flex-shrink-0" />
+                            <span>TALK TO EXPERT</span>
+                            {isExpanded ? <ChevronUp className="w-5 h-5 ml-1" /> : <ChevronDown className="w-5 h-5 ml-1" />}
+                        </button>
+
+                        <AnimatePresence>
+                            {isExpanded && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    className="px-4 pb-4 bg-white border-x-2 border-b-2 border-brand-blue"
+                                >
+                                    {isSubmitted ? (
+                                        <div className="py-6 text-center">
+                                            <div className="inline-block p-2 bg-green-50 text-green-600 rounded-full mb-2">
+                                                <CheckCircle2 className="w-8 h-8" />
+                                            </div>
+                                            <p className="font-bold text-gray-900">Thank You!</p>
+                                            <p className="text-xs text-gray-600">Our expert will contact you soon.</p>
+                                        </div>
+                                    ) : (
+                                        <form onSubmit={handleFormSubmit} className="pt-4 space-y-3 text-left">
+                                            <div>
+                                                <Label htmlFor="name" className="text-[10px] uppercase font-bold text-brand-blue">Full Name *</Label>
+                                                <Input
+                                                    id="name"
+                                                    placeholder="As per Govt ID"
+                                                    value={formData.name}
+                                                    onChange={(e) => handleInputChange('name', e.target.value)}
+                                                    className={`rounded-none border-2 h-9 text-sm bg-white ${errors.name ? 'border-brand-orange bg-red-50' : 'border-brand-blue'}`}
+                                                />
+                                            </div>
+                                            <div>
+                                                <Label htmlFor="mobile" className="text-[10px] uppercase font-bold text-brand-blue">Mobile Number *</Label>
+                                                <div className="flex gap-2">
+                                                    <div className="w-12 h-9 flex items-center justify-center bg-white border-2 border-brand-blue text-xs font-bold">+91</div>
+                                                    <Input
+                                                        id="mobile"
+                                                        placeholder="9876543210"
+                                                        value={formData.mobile}
+                                                        onChange={(e) => handleInputChange('mobile', e.target.value.replace(/\D/g, '').slice(0, 10))}
+                                                        className={`flex-1 rounded-none border-2 h-9 text-sm bg-white ${errors.mobile ? 'border-brand-orange bg-red-50' : 'border-brand-blue'}`}
+                                                    />
+                                                </div>
+                                                {errors.mobile && <p className="text-[10px] text-brand-orange mt-1 font-bold italic">{errors.mobile}</p>}
+                                            </div>
+                                            <button
+                                                type="submit"
+                                                disabled={isLoading}
+                                                className="w-full game-btn-orange text-sm shadow-[4px_4px_0px_0px_rgba(194,65,12,1)] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(194,65,12,1)] active:translate-y-[2px] active:shadow-none transition-all disabled:opacity-50"
+                                            >
+                                                {isLoading ? 'Processing...' : 'Proceed'}
+                                            </button>
+                                        </form>
+                                    )}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
 
                     <button
                         onClick={onRestart}
-                        className="w-full game-btn bg-white text-brand-blue border-brand-blue hover:bg-blue-50 shadow-[4px_4px_0px_0px_rgba(0,94,184,0.2)]"
+                        className="w-full py-3 bg-white text-brand-blue font-bold border-2 border-brand-blue hover:bg-blue-50 transition-colors flex items-center justify-center gap-2"
                     >
-                        <div className="flex items-center justify-center gap-2">
-                            <RotateCcw className="w-5 h-5" />
-                            <span>Play Again</span>
-                        </div>
+                        <RotateCcw className="w-4 h-4" />
+                        <span>PLAY AGAIN</span>
                     </button>
                 </div>
             </div>
