@@ -43,7 +43,7 @@ const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSel
                                 flex items-center justify-center w-8 h-8 mr-4 font-bold border-2 transition-colors
                                 ${selectedAnswer === index
                                     ? 'bg-white text-brand-blue border-white'
-                                    : 'bg-brand-blue text-white border-brand-blue group-hover:bg-brand-orange group-hover:border-brand-orange'}
+                                    : 'bg-brand-blue text-white border-brand-blue sm:group-hover:bg-brand-orange sm:group-hover:border-brand-orange'}
                             `}>
                                 {String.fromCharCode(65 + index)}
                             </span>
