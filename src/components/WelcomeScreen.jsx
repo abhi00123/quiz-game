@@ -15,7 +15,7 @@ const WelcomeScreen = ({ onStart }) => {
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.3 }}
-                        className="w-[180px]"
+                        className="w-[11.25rem]"
                     >
                         {/* Static Brand Logo */}
                         <img
@@ -41,7 +41,7 @@ const WelcomeScreen = ({ onStart }) => {
 
                 <button
                     onClick={onStart}
-                    className="w-full game-btn-orange text-xl shadow-[4px_4px_0px_0px_rgba(194,65,12,1)] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(194,65,12,1)] active:translate-y-[2px] active:shadow-none transition-all"
+                    className="w-full game-btn-orange text-xl shadow-[0.25rem_0.25rem_0_0_rgba(194,65,12,1)] hover:translate-y-[-0.125rem] hover:shadow-[0.375rem_0.375rem_0_0_rgba(194,65,12,1)] active:translate-y-[0.125rem] active:shadow-none transition-all"
                 >
                     Start Game
                 </button>

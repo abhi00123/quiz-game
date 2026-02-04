@@ -22,7 +22,7 @@ const FeedbackScreen = ({ isCorrect, explanation, onNext, shieldBroken = false }
                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
             >
                 <div className={`game-board border-l-8 ${isCorrect ? 'border-l-brand-blue bg-white' : 'border-l-brand-orange bg-white'
-                    } shadow-[8px_8px_0px_0px_rgba(0,0,0,0.25)]`}>
+                    } shadow-[0.5rem_0.5rem_0_0_rgba(0,0,0,0.25)]`}>
 
                     <div className="p-6 text-center">
                         {/* Icon */}
@@ -30,7 +30,7 @@ const FeedbackScreen = ({ isCorrect, explanation, onNext, shieldBroken = false }
                             initial={{ scale: 0, rotate: -180 }}
                             animate={{ scale: 1, rotate: 0 }}
                             transition={{ type: "spring", damping: 15, stiffness: 200 }}
-                            className="mb-4 inline-block p-4 border-4 border-current shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)]"
+                            className="mb-4 inline-block p-4 border-4 border-current shadow-[0.25rem_0.25rem_0_0_rgba(0,0,0,0.1)]"
                             style={{ color: isCorrect ? 'var(--brand-blue)' : 'var(--brand-orange)' }}
                         >
                             {isCorrect ? (

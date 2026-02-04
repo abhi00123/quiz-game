@@ -5,7 +5,7 @@ const QuizProgressBar = ({ currentQuestion, totalQuestions }) => {
     const percentage = (currentQuestion / totalQuestions) * 100;
 
     // Calculate badge position - allow it to reach the edge (8% to 92%)
-    const badgePosition = Math.max(8, Math.min(99, percentage));
+    const badgePosition = Math.max(8, Math.min(94, percentage));
 
     return (
         <div className="w-full px-2 pt-2 pb-4">
@@ -16,7 +16,7 @@ const QuizProgressBar = ({ currentQuestion, totalQuestions }) => {
                     className="relative h-10 rounded-full p-1"
                     style={{
                         backgroundColor: '#1e3a8a',
-                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 3px rgba(0, 0, 0, 0.2)'
+                        boxShadow: '0 0.125rem 0.5rem rgba(0, 0, 0, 0.3), inset 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.2)'
                     }}
                 >
                     {/* Inner track - dark blue */}
@@ -29,7 +29,7 @@ const QuizProgressBar = ({ currentQuestion, totalQuestions }) => {
                             className="absolute left-0 top-0 h-full rounded-full"
                             style={{
                                 backgroundColor: '#ff6b4a',
-                                boxShadow: 'inset 0 2px 4px rgba(255, 255, 255, 0.2), inset 0 -2px 4px rgba(0, 0, 0, 0.1)'
+                                boxShadow: 'inset 0 0.125rem 0.25rem rgba(255, 255, 255, 0.2), inset 0 -0.125rem 0.25rem rgba(0, 0, 0, 0.1)'
                             }}
                             initial={{ width: 0 }}
                             animate={{ width: `${percentage}%` }}
@@ -50,8 +50,8 @@ const QuizProgressBar = ({ currentQuestion, totalQuestions }) => {
                         className="flex items-center justify-center w-12 h-12 rounded-full text-white font-bold text-sm"
                         style={{
                             backgroundColor: '#1e3a8a',
-                            border: '3px solid #fbbf24',
-                            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)'
+                            border: '0.1875rem solid #fbbf24',
+                            boxShadow: '0 0.125rem 0.5rem rgba(0, 0, 0, 0.3)'
                         }}
                         initial={{ scale: 0.9 }}
                         animate={{ scale: 1 }}

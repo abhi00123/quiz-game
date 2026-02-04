@@ -14,7 +14,7 @@ const BiologicaButton = React.forwardRef(({
             ref={ref}
             className={cn(
                 // Base styles
-                "relative flex flex-col items-center justify-center px-6 py-4 min-h-[80px]",
+                "relative flex flex-col items-center justify-center px-6 py-4 min-h-[5rem]",
                 "rounded-full border border-gray-300 bg-[#FAFAF8]",
                 "text-charcoal font-medium transition-all duration-200 ease-out",
                 "shadow-sm hover:shadow-md hover:bg-[#F5F5F3]",

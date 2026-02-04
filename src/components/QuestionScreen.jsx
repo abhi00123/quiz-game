@@ -67,8 +67,8 @@ const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSel
                                 className={`text-2xl ${index < wrongAnswers ? 'text-red-600' : 'text-gray-300'}`}
                                 style={{
                                     fontWeight: 900,
-                                    WebkitTextStroke: index < wrongAnswers ? '1px #b91c1c' : '0.5px #9ca3af',
-                                    letterSpacing: '-2px'
+                                    WebkitTextStroke: index < wrongAnswers ? '0.0625rem #b91c1c' : '0.03125rem #9ca3af',
+                                    letterSpacing: '-0.125rem'
                                 }}
                             >
                                 ✕

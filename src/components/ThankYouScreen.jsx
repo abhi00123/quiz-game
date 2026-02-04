@@ -20,7 +20,7 @@ const ThankYouScreen = ({ userName, onRestart }) => {
                     className="flex justify-center mb-3 sm:mb-4"
                 >
                     <div className="relative">
-                        <div className="bg-green-500 p-3 border-4 border-green-700 shadow-[4px_4px_0px_0px_rgba(21,128,61,0.3)]">
+                        <div className="bg-green-500 p-3 border-4 border-green-700 shadow-[0.25rem_0.25rem_0_0_rgba(21,128,61,0.3)]">
                             <CheckCircle2 className="w-10 h-10 sm:w-12 sm:h-12 text-white" strokeWidth={2.5} />
                         </div>
                     </div>
@@ -43,7 +43,7 @@ const ThankYouScreen = ({ userName, onRestart }) => {
 
                 {/* Expert Contact Info */}
                 <div className="bg-blue-50 border-2 border-brand-blue p-3 mb-4 text-left relative">
-                    <div className="absolute -top-3 -right-3 bg-brand-orange text-white text-[10px] font-bold px-2 py-0.5 rotate-3">
+                    <div className="absolute -top-3 -right-3 bg-brand-orange text-white text-[0.625rem] font-bold px-2 py-0.5 rotate-3">
                         24 HOURS
                     </div>
                     <div className="flex items-start gap-3">
@@ -63,7 +63,7 @@ const ThankYouScreen = ({ userName, onRestart }) => {
                         <span className="text-gray-700">Buy our</span>
                         <RotatingText
                             texts={['Term', 'ULIP', 'Savings']}
-                            mainClassName="inline-flex px-2 bg-brand-blue text-white overflow-hidden py-0.5 font-black min-w-[75px] justify-center uppercase text-sm"
+                            mainClassName="inline-flex px-2 bg-brand-blue text-white overflow-hidden py-0.5 font-black min-w-[4.6875rem] justify-center uppercase text-sm"
                             staggerFrom="last"
                             initial={{ y: "100%" }}
                             animate={{ y: 0 }}
@@ -80,7 +80,7 @@ const ThankYouScreen = ({ userName, onRestart }) => {
                 {/* Action Button */}
                 <button
                     onClick={onRestart}
-                    className="w-full game-btn-orange py-2 text-base shadow-[4px_4px_0px_0px_rgba(194,65,12,1)] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(194,65,12,1)] active:translate-y-[2px] active:shadow-none transition-all"
+                    className="w-full game-btn-orange py-2 text-base shadow-[0.25rem_0.25rem_0_0_rgba(194,65,12,1)] hover:translate-y-[-0.125rem] hover:shadow-[0.375rem_0.375rem_0_0_rgba(194,65,12,1)] active:translate-y-[0.125rem] active:shadow-none transition-all"
                 >
                     <div className="flex items-center justify-center gap-2">
                         <RotateCcw className="w-4 h-4" />

@@ -80,7 +80,7 @@ const ResultsScreen = ({ score, total, onRestart, onTalkToExpert, shieldBroken =
                         <motion.div
                             animate={{ rotate: [0, -5, 5, -5, 5, 0] }}
                             transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                            className="p-3 bg-blue-50 border-4 border-brand-orange shadow-[4px_4px_0px_0px_rgba(245,130,32,0.3)]"
+                            className="p-3 bg-blue-50 border-4 border-brand-orange shadow-[0.25rem_0.25rem_0_0_rgba(245,130,32,0.3)]"
                         >
                             <Trophy className="w-12 h-12 text-brand-orange" strokeWidth={1.5} />
                         </motion.div>
@@ -98,7 +98,7 @@ const ResultsScreen = ({ score, total, onRestart, onTalkToExpert, shieldBroken =
 
                 {/* Expert Contact Section - Emphasized when shield is broken */}
                 <div className={`${shieldBroken ? 'bg-amber-50 border-amber-400' : 'bg-blue-50 border-brand-blue'} border-2 p-3 mb-4 text-left relative`}>
-                    <div className={`absolute -top-3 -right-3 ${shieldBroken ? 'bg-amber-500' : 'bg-brand-orange'} text-white text-[10px] font-bold px-2 py-0.5 rotate-3`}>
+                    <div className={`absolute -top-3 -right-3 ${shieldBroken ? 'bg-amber-500' : 'bg-brand-orange'} text-white text-[0.625rem] font-bold px-2 py-0.5 rotate-3`}>
                         {shieldBroken ? 'RECOMMENDED' : 'EXPERT HELP'}
                     </div>
                     <div className="flex items-center gap-3">
@@ -123,7 +123,7 @@ const ResultsScreen = ({ score, total, onRestart, onTalkToExpert, shieldBroken =
                 <div className="space-y-3">
                     <motion.button
                         onClick={onTalkToExpert}
-                        className={`w-full ${shieldBroken ? 'game-btn bg-amber-500 text-white border-amber-600 hover:bg-amber-600' : 'game-btn-orange'} text-lg shadow-[4px_4px_0px_0px_rgba(194,65,12,1)] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(194,65,12,1)] active:translate-y-[2px] active:shadow-none transition-all`}
+                        className={`w-full ${shieldBroken ? 'game-btn bg-amber-500 text-white border-amber-600 hover:bg-amber-600' : 'game-btn-orange'} text-lg shadow-[0.25rem_0.25rem_0_0_rgba(194,65,12,1)] hover:translate-y-[-0.125rem] hover:shadow-[0.375rem_0.375rem_0_0_rgba(194,65,12,1)] active:translate-y-[0.125rem] active:shadow-none transition-all`}
                         animate={shieldBroken ? { scale: [1, 1.02, 1] } : {}}
                         transition={{ duration: 1.5, repeat: Infinity }}
                     >
@@ -132,7 +132,7 @@ const ResultsScreen = ({ score, total, onRestart, onTalkToExpert, shieldBroken =
 
                     <button
                         onClick={onRestart}
-                        className="w-full game-btn bg-white text-brand-blue border-brand-blue hover:bg-blue-50 shadow-[4px_4px_0px_0px_rgba(0,94,184,0.2)]"
+                        className="w-full game-btn bg-white text-brand-blue border-brand-blue hover:bg-blue-50 shadow-[0.25rem_0.25rem_0_0_rgba(0,94,184,0.2)]"
                     >
                         <div className="flex items-center justify-center gap-2">
                             <RotateCcw className="w-5 h-5" />
