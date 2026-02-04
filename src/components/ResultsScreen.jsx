@@ -69,11 +69,10 @@ const submitToLMS = async (data) => {
     }
 };
 
-const ResultsScreen = ({ score, total, onRestart }) => {
+const ResultsScreen = ({ score, total, onRestart, onFormSubmit }) => {
     const percentage = (score / total) * 100;
     const [isExpanded, setIsExpanded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
     const [formData, setFormData] = useState({ name: '', mobile: '' });
     const [errors, setErrors] = useState({});
 
@@ -103,7 +102,9 @@ const ResultsScreen = ({ score, total, onRestart }) => {
                 name: formData.name.trim(),
                 mobile_no: formData.mobile.trim()
             });
-            setIsSubmitted(true);
+            if (onFormSubmit) {
+                onFormSubmit(formData.name.trim());
+            }
         } catch (error) {
             setErrors({ submit: 'Failed to submit. Try again.' });
         } finally {
@@ -196,49 +197,39 @@ const ResultsScreen = ({ score, total, onRestart }) => {
                                     exit={{ height: 0, opacity: 0 }}
                                     className="px-4 pb-4 bg-white border-x-2 border-b-2 border-brand-blue"
                                 >
-                                    {isSubmitted ? (
-                                        <div className="py-6 text-center">
-                                            <div className="inline-block p-2 bg-green-50 text-green-600 rounded-full mb-2">
-                                                <CheckCircle2 className="w-8 h-8" />
-                                            </div>
-                                            <p className="font-bold text-gray-900">Thank You!</p>
-                                            <p className="text-xs text-gray-600">Our expert will contact you soon.</p>
+                                    <form onSubmit={handleFormSubmit} className="pt-4 space-y-3 text-left">
+                                        <div>
+                                            <Label htmlFor="name" className="text-[10px] uppercase font-bold text-brand-blue">Full Name *</Label>
+                                            <Input
+                                                id="name"
+                                                placeholder="As per Govt ID"
+                                                value={formData.name}
+                                                onChange={(e) => handleInputChange('name', e.target.value)}
+                                                className={`rounded-none border-2 h-9 text-sm bg-white ${errors.name ? 'border-brand-orange bg-red-50' : 'border-brand-blue'}`}
+                                            />
                                         </div>
-                                    ) : (
-                                        <form onSubmit={handleFormSubmit} className="pt-4 space-y-3 text-left">
-                                            <div>
-                                                <Label htmlFor="name" className="text-[10px] uppercase font-bold text-brand-blue">Full Name *</Label>
+                                        <div>
+                                            <Label htmlFor="mobile" className="text-[10px] uppercase font-bold text-brand-blue">Mobile Number *</Label>
+                                            <div className="flex gap-2">
+                                                <div className="w-12 h-9 flex items-center justify-center bg-white border-2 border-brand-blue text-xs font-bold">+91</div>
                                                 <Input
-                                                    id="name"
-                                                    placeholder="As per Govt ID"
-                                                    value={formData.name}
-                                                    onChange={(e) => handleInputChange('name', e.target.value)}
-                                                    className={`rounded-none border-2 h-9 text-sm bg-white ${errors.name ? 'border-brand-orange bg-red-50' : 'border-brand-blue'}`}
+                                                    id="mobile"
+                                                    placeholder="9876543210"
+                                                    value={formData.mobile}
+                                                    onChange={(e) => handleInputChange('mobile', e.target.value.replace(/\D/g, '').slice(0, 10))}
+                                                    className={`flex-1 rounded-none border-2 h-9 text-sm bg-white ${errors.mobile ? 'border-brand-orange bg-red-50' : 'border-brand-blue'}`}
                                                 />
                                             </div>
-                                            <div>
-                                                <Label htmlFor="mobile" className="text-[10px] uppercase font-bold text-brand-blue">Mobile Number *</Label>
-                                                <div className="flex gap-2">
-                                                    <div className="w-12 h-9 flex items-center justify-center bg-white border-2 border-brand-blue text-xs font-bold">+91</div>
-                                                    <Input
-                                                        id="mobile"
-                                                        placeholder="9876543210"
-                                                        value={formData.mobile}
-                                                        onChange={(e) => handleInputChange('mobile', e.target.value.replace(/\D/g, '').slice(0, 10))}
-                                                        className={`flex-1 rounded-none border-2 h-9 text-sm bg-white ${errors.mobile ? 'border-brand-orange bg-red-50' : 'border-brand-blue'}`}
-                                                    />
-                                                </div>
-                                                {errors.mobile && <p className="text-[10px] text-brand-orange mt-1 font-bold italic">{errors.mobile}</p>}
-                                            </div>
-                                            <button
-                                                type="submit"
-                                                disabled={isLoading}
-                                                className="w-full game-btn-orange text-sm shadow-[4px_4px_0px_0px_rgba(194,65,12,1)] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(194,65,12,1)] active:translate-y-[2px] active:shadow-none transition-all disabled:opacity-50"
-                                            >
-                                                {isLoading ? 'Processing...' : 'Proceed'}
-                                            </button>
-                                        </form>
-                                    )}
+                                            {errors.mobile && <p className="text-[10px] text-brand-orange mt-1 font-bold italic">{errors.mobile}</p>}
+                                        </div>
+                                        <button
+                                            type="submit"
+                                            disabled={isLoading}
+                                            className="w-full game-btn-orange text-sm shadow-[4px_4px_0px_0px_rgba(194,65,12,1)] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(194,65,12,1)] active:translate-y-[2px] active:shadow-none transition-all disabled:opacity-50"
+                                        >
+                                            {isLoading ? 'Processing...' : 'Proceed'}
+                                        </button>
+                                    </form>
                                 </motion.div>
                             )}
                         </AnimatePresence>

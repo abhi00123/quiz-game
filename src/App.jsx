@@ -23,6 +23,7 @@ const QuizGame = () => {
         handleAnswerSelect,
         handleNextQuestion,
         handleRestart,
+        handleFormSubmit,
     } = useQuiz();
 
     return (
@@ -69,6 +70,7 @@ const QuizGame = () => {
                                 score={score}
                                 total={totalQuestions}
                                 onRestart={handleRestart}
+                                onFormSubmit={handleFormSubmit}
                             />
                         )}
 

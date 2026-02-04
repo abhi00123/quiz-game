@@ -102,7 +102,10 @@ export const QuizProvider = ({ children }) => {
         setShowFeedback(false);
     }, []);
 
-
+    const handleFormSubmit = useCallback((name) => {
+        setUserName(name);
+        setCurrentScreen(SCREENS.THANK_YOU);
+    }, []);
 
     // Context value
     const value = {
@@ -124,6 +127,7 @@ export const QuizProvider = ({ children }) => {
         handleAnswerSelect,
         handleNextQuestion,
         handleRestart,
+        handleFormSubmit,
     };
 
     return (
