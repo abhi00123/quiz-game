@@ -33,8 +33,8 @@ const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSel
                             onClick={() => onAnswerSelect(index)}
                             disabled={selectedAnswer !== null}
                             className={`game-option flex items-center group ${selectedAnswer === index
-                                    ? 'selected ring-2 ring-brand-orange ring-offset-2 ring-offset-white'
-                                    : ''
+                                ? 'selected ring-2 ring-brand-orange ring-offset-2 ring-offset-white'
+                                : ''
                                 }`}
                         >
                             <span className={`

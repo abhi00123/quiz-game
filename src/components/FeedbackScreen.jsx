@@ -46,7 +46,7 @@ const FeedbackScreen = ({ isCorrect, explanation, onNext }) => {
                             className={`text-2xl font-black uppercase tracking-wide mb-3 ${isCorrect ? 'text-brand-blue' : 'text-brand-orange'
                                 }`}
                         >
-                            {isCorrect ? 'Correct!' : "Incorect!"}
+                            {isCorrect ? 'Correct!' : "Incorrect!"}
                         </motion.h3>
 
                         {/* Explanation */}

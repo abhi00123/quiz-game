@@ -17,12 +17,12 @@ const WelcomeScreen = ({ onStart }) => {
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.3 }}
-                        className="relative w-[200px] h-[200px]"
+                        className="relative w-[160px] h-[160px]"
                     >
                         {/* Blue Circle Background with Icon */}
                         <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-24 h-24 bg-brand-blue rounded-full flex items-center justify-center shadow-lg">
-                                <ClipboardList className="w-12 h-12 text-white" />
+                            <div className="w-20 h-20 bg-brand-blue rounded-full flex items-center justify-center shadow-lg">
+                                <ClipboardList className="w-10 h-10 text-white" />
                             </div>
                         </div>
 
@@ -40,11 +40,11 @@ const WelcomeScreen = ({ onStart }) => {
                     Life Insurance<br />GST Quiz
                 </h1>
 
-                <div className="bg-blue-50 border-2 border-brand-blue p-4 mb-8">
-                    <p className="text-lg text-brand-orange font-bold mb-2">
+                <div className="bg-blue-50 border-2 border-brand-blue p-3 mb-6">
+                    <p className="text-base text-brand-orange font-bold mb-1">
                         Did you know?
                     </p>
-                    <p className="text-gray-700 font-medium">
+                    <p className="text-sm text-gray-700 font-medium leading-tight">
                         Life insurance attracts 0% GST! Test your knowledge now.
                     </p>
                 </div>
@@ -53,7 +53,7 @@ const WelcomeScreen = ({ onStart }) => {
                     onClick={onStart}
                     className="w-full game-btn-orange text-xl shadow-[4px_4px_0px_0px_rgba(194,65,12,1)] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(194,65,12,1)] active:translate-y-[2px] active:shadow-none transition-all"
                 >
-                    Start Game 🎮
+                    Start Game
                 </button>
             </div>
         </motion.div>

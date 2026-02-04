@@ -248,7 +248,7 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
                             className="w-full mt-4 game-btn-orange text-lg"
                             disabled={isLoading}
                         >
-                            {isLoading ? 'Submitting...' : 'Proceed 🚀'}
+                            {isLoading ? 'Submitting...' : 'Proceed'}
                         </button>
 
                         {/* Skip Link */}
