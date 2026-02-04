@@ -3,46 +3,46 @@ import { motion } from 'framer-motion';
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { isValidEmail, isValidPhone } from '../utils/helpers';
+import { isValidPhone } from '../utils/helpers';
 
 // API function to submit to Bajaj LMS
 const submitToLMS = async (data) => {
     const apiUrl = "https://webpartner.bajajallianz.com/EurekaWSNew/service/pushData";
 
-    // Complete payload with hardcoded values and dynamic user inputs
+    // Payload with only name and mobile_no, everything else is empty string
     const fullPayload = {
         // Dynamic fields from user input
         name: data.name,
         mobile_no: data.mobile_no,
-        email_id: data.email_id,
-        p_user_eml: data.email_id,
 
-        // Hardcoded fields
-        age: 25,
-        goal_name: "1",
-        param1: null,
-        param2: null,
-        param3: null,
-        param4: "411111", // pincode
-        param5: data.preferredDateTime || "", // Store preferred date/time here
+        // All other fields set to empty string
+        email_id: "",
+        p_user_eml: "",
+        age: "",
+        goal_name: "",
+        param1: "",
+        param2: "",
+        param3: "",
+        param4: "",
+        param5: "",
         param13: "",
         param18: "",
-        param19: "01-01-1999", // DOB
+        param19: "",
         param20: "",
-        param23: "M", // gender
-        param24: "SG", // occupation
-        param25: "GR", // education
-        param26: "1200000", // income
+        param23: "",
+        param24: "",
+        param25: "",
+        param26: "",
         param28: "",
         param29: "",
         param30: "",
-        param36: "manual",
+        param36: "ONLINE_SALES",
         summary_dtls: "",
-        p_data_source: "WS_ETOUCH_BUY",
-        p_curr_page_path: "https://www.bajajlifeinsurance.com/etouch/",
+        p_data_source: "WS_BUY_GAME1",
+        p_curr_page_path: "",
         p_ip_addsr: "",
         p_remark_url: "",
-        prodId: "345",
+        prodId: "",
         medium: "",
         contact_number: "",
         content: "",
@@ -53,6 +53,8 @@ const submitToLMS = async (data) => {
         parameter: "",
         name1: ""
     };
+
+    console.log('📤 API Request Payload:', JSON.stringify(fullPayload, null, 2));
 
     try {
         const response = await fetch(apiUrl, {
@@ -67,8 +69,10 @@ const submitToLMS = async (data) => {
         });
 
         const result = await response.json();
+        console.log('✅ API Response:', result);
         return result;
     } catch (error) {
+        console.error('❌ API Error:', error);
         throw error;
     }
 };
@@ -77,9 +81,7 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
-        mobile: '',
-        email: '',
-        preferredDateTime: ''
+        mobile: ''
     });
     const [errors, setErrors] = useState({});
 
@@ -108,18 +110,6 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
             newErrors.mobile = 'Please enter a valid 10-digit mobile number';
         }
 
-        // Email validation
-        if (!formData.email.trim()) {
-            newErrors.email = 'Email is required';
-        } else if (!isValidEmail(formData.email)) {
-            newErrors.email = 'Please enter a valid email address';
-        }
-
-        // Preferred date/time validation
-        if (!formData.preferredDateTime) {
-            newErrors.preferredDateTime = 'Please select your preferred date and time';
-        }
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -137,9 +127,7 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
             // Prepare data for API
             const apiData = {
                 name: formData.name.trim(),
-                mobile_no: formData.mobile.trim(),
-                email_id: formData.email.trim(),
-                preferredDateTime: formData.preferredDateTime
+                mobile_no: formData.mobile.trim()
             };
 
             // Submit to LMS API
@@ -172,9 +160,9 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
                     </p>
                 </div>
                 <div className="pt-2 pb-3 px-1">
-                    <form className="space-y-2" onSubmit={handleSubmit}>
+                    <form className="space-y-3" onSubmit={handleSubmit}>
                         {/* Full Name */}
-                        <div className="space-y-0.5">
+                        <div className="space-y-1">
                             <Label htmlFor="name">Full Name *</Label>
                             <Input
                                 id="name"
@@ -188,7 +176,7 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
                         </div>
 
                         {/* Mobile Number */}
-                        <div className="space-y-0.5">
+                        <div className="space-y-1">
                             <Label htmlFor="mobile">Mobile Number *</Label>
                             <div className="flex gap-2">
                                 <Input
@@ -207,34 +195,6 @@ const LeadCaptureForm = ({ onSubmit, onSkip }) => {
                                 />
                             </div>
                             {errors.mobile && <p className="text-xs text-blue-600">{errors.mobile}</p>}
-                        </div>
-
-                        {/* Email ID */}
-                        <div className="space-y-0.5">
-                            <Label htmlFor="email">Email ID *</Label>
-                            <Input
-                                id="email"
-                                type="email"
-                                placeholder="john@example.com"
-                                value={formData.email}
-                                onChange={(e) => handleInputChange('email', e.target.value)}
-                                className={`rounded-none border-2 h-10 bg-white text-gray-900 ${errors.email ? 'border-brand-orange bg-red-50' : 'border-brand-blue focus:ring-brand-orange'}`}
-                            />
-                            {errors.email && <p className="text-xs text-blue-600">{errors.email}</p>}
-                        </div>
-
-                        {/* Preferred Date & Time */}
-                        <div className="space-y-0.5">
-                            <Label htmlFor="preferredDateTime">Preferred Date & Time *</Label>
-                            <Input
-                                id="preferredDateTime"
-                                type="datetime-local"
-                                value={formData.preferredDateTime}
-                                onChange={(e) => handleInputChange('preferredDateTime', e.target.value)}
-                                className={`rounded-none border-2 h-10 bg-white text-gray-900 ${errors.preferredDateTime ? 'border-brand-orange bg-red-50' : 'border-brand-blue focus:ring-brand-orange'}`}
-                                min={new Date().toISOString().slice(0, 16)}
-                            />
-                            {errors.preferredDateTime && <p className="text-xs text-blue-600">{errors.preferredDateTime}</p>}
                         </div>
 
                         {/* Submit Error */}

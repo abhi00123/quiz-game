@@ -1,6 +1,4 @@
 import { motion } from 'framer-motion';
-import { ClipboardList } from "lucide-react";
-import CircularText from './CircularText';
 
 const WelcomeScreen = ({ onStart }) => {
     return (
@@ -12,26 +10,18 @@ const WelcomeScreen = ({ onStart }) => {
             transition={{ duration: 0.3 }}
         >
             <div className="game-board text-center">
-                <div className="flex justify-center mb-6 relative">
+                <div className="flex justify-center mb-3 relative">
                     <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.3 }}
-                        className="relative w-[160px] h-[160px]"
+                        className="w-[180px]"
                     >
-                        {/* Blue Circle Background with Icon */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-20 h-20 bg-brand-blue rounded-full flex items-center justify-center shadow-lg">
-                                <ClipboardList className="w-10 h-10 text-white" />
-                            </div>
-                        </div>
-
-                        {/* Circular Rotating Text */}
-                        <CircularText
-                            text="BAJAJ LIFE • INSURANCE • "
-                            onHover="speedUp"
-                            spinDuration={15}
-                            className="w-full h-full text-brand-blue"
+                        {/* Static Brand Logo */}
+                        <img
+                            src="/assets/bajaj-life-logo.png"
+                            alt="Bajaj Life - Life Goals. Done."
+                            className="w-full h-auto object-contain"
                         />
                     </motion.div>
                 </div>
