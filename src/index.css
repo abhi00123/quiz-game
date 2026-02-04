@@ -65,7 +65,7 @@
 
     /* Game Option Tile Style */
     .game-option {
-        @apply bg-white border-2 border-brand-blue text-brand-blue font-semibold p-4 w-full text-left hover:bg-blue-50 transition-colors relative;
+        @apply bg-white border-2 border-brand-blue text-brand-blue font-semibold p-4 w-full text-left sm:hover:bg-blue-50 transition-colors relative;
     }
 
     .game-option.selected {
