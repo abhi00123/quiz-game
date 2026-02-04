@@ -28,8 +28,8 @@ const QuizGame = () => {
     return (
         <div className="h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans transition-colors duration-300 overflow-hidden">
             {/* Main Content */}
-            <main className="flex-1 flex items-center justify-center p-3 overflow-y-auto">
-                <div className="w-full max-w-[600px]">
+            <main className="flex-1 flex items-center justify-center sm:p-3 p-0 overflow-y-auto">
+                <div className="w-full sm:max-w-[600px] h-full sm:h-auto">
                     <AnimatePresence mode="wait">
                         {currentScreen === SCREENS.WELCOME && (
                             <WelcomeScreen key="welcome" onStart={startQuiz} />

@@ -133,7 +133,7 @@ const ResultsScreen = ({ score, total, onRestart }) => {
 
     return (
         <motion.div
-            className="w-full max-w-lg mx-auto text-center"
+            className="w-full h-full sm:max-w-lg sm:h-auto mx-auto text-center"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}

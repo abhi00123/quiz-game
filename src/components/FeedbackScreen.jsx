@@ -11,7 +11,7 @@ const FeedbackScreen = ({ isCorrect, explanation, onNext }) => {
     }, [onNext]);
 
     return (
-        <div className="absolute inset-0 z-50 flex items-end justify-center sm:items-center p-4 bg-brand-blue/80 backdrop-blur-sm">
+        <div className="absolute inset-0 z-50 flex items-end justify-center sm:items-center sm:p-4 p-0 bg-brand-blue/80 backdrop-blur-sm">
             <motion.div
                 className="w-full max-w-md"
                 initial={{ y: 100, opacity: 0, scale: 0.9 }}
