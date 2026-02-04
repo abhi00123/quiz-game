@@ -4,11 +4,12 @@ import { useEffect } from 'react';
 
 const FeedbackScreen = ({ isCorrect, explanation, onNext }) => {
     useEffect(() => {
+        const duration = isCorrect ? 2000 : 2600;
         const timer = setTimeout(() => {
             onNext();
-        }, 1000);
+        }, duration);
         return () => clearTimeout(timer);
-    }, [onNext]);
+    }, [onNext, isCorrect]);
 
     return (
         <div className="absolute inset-0 z-50 flex items-end justify-center sm:items-center sm:p-4 p-0 bg-brand-blue/80 backdrop-blur-sm">
@@ -65,7 +66,7 @@ const FeedbackScreen = ({ isCorrect, explanation, onNext }) => {
                                 className={`h-full ${isCorrect ? 'bg-brand-blue' : 'bg-brand-orange'}`}
                                 initial={{ width: "0%" }}
                                 animate={{ width: "100%" }}
-                                transition={{ duration: 1, ease: "linear" }}
+                                transition={{ duration: isCorrect ? 2 : 2.6, ease: "linear" }}
                             />
                         </div>
                     </div>

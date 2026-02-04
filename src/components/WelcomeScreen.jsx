@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 const WelcomeScreen = ({ onStart }) => {
     return (
         <motion.div
-            className="w-full h-full sm:max-w-md sm:h-auto mx-auto"
+            className="w-full max-w-md mx-auto"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}

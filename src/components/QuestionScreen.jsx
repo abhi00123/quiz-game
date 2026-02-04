@@ -4,7 +4,7 @@ import QuizProgressBar from './QuizProgressBar';
 const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSelect, selectedAnswer }) => {
     return (
         <motion.div
-            className="w-full h-full sm:max-w-lg sm:h-auto mx-auto"
+            className="w-full max-w-lg mx-auto"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}

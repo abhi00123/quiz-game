@@ -50,14 +50,8 @@
 
     /* Game Board Container Style */
     .game-board {
-        @apply bg-white sm:border-4 border-brand-blue p-4 sm:p-6 relative w-full h-full sm:h-auto overflow-y-auto;
-        box-shadow: none;
-    }
-
-    @media (min-width: 640px) {
-        .game-board {
-            box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.2);
-        }
+        @apply bg-white border-4 border-brand-blue p-6 relative;
+        box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.2);
     }
 
     /* Game Button Style */
