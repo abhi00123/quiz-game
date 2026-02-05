@@ -78,11 +78,25 @@
     }
 }
 
+html,
+body,
+#root {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #005eb8;
+    /* Keep blue background for outer margins */
+}
+
 body {
-    @apply bg-brand-blue text-slate-900 antialiased selection:bg-brand-orange selection:text-white;
+    @apply text-slate-900 antialiased selection:bg-brand-orange selection:text-white;
     background-image: radial-gradient(#ffffff 1px, transparent 1px);
     background-size: 20px 20px;
-    background-color: #005eb8;
 }
 
 /* Typography Overrides */
@@ -116,4 +130,17 @@ h6 {
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 300ms, transform 300ms;
+}
+
+/* Utility classes */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari and Opera */
 }

@@ -27,10 +27,10 @@ const QuizGame = () => {
     } = useQuiz();
 
     return (
-        <div className="h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans transition-colors duration-300 overflow-hidden">
+        <div className="w-screen h-screen bg-white flex flex-col font-sans transition-colors duration-300 overflow-hidden border-[6px] border-brand-blue">
             {/* Main Content */}
-            <main className="flex-1 flex items-center justify-center p-3 overflow-y-auto">
-                <div className="w-full max-w-[600px]">
+            <main className="w-full h-full flex flex-col items-center overflow-hidden">
+                <div className="w-full h-full max-w-[600px] flex flex-col items-center p-4 relative overflow-y-auto scrollbar-hide">
                     <AnimatePresence mode="wait">
                         {currentScreen === SCREENS.WELCOME && (
                             <WelcomeScreen key="welcome" onStart={startQuiz} />
