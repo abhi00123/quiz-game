@@ -19,7 +19,7 @@ const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSel
 
             <div className="flex-1 flex flex-col justify-center space-y-6">
                 {/* Character Section */}
-                <div className="flex justify-center">
+                {/* <div className="flex justify-center">
                     <motion.div
                         initial={{ scale: 0, rotate: -10 }}
                         animate={{ scale: 1, rotate: 0 }}
@@ -32,7 +32,7 @@ const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSel
                             className="w-full h-full object-contain drop-shadow-lg"
                         />
                     </motion.div>
-                </div>
+                </div> */}
 
                 {/* Question Text Area */}
                 <div className="bg-white border-l-8 border-brand-orange py-6 px-6">

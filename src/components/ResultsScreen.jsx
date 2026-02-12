@@ -164,9 +164,7 @@ const ResultsScreen = ({ score, total, onRestart, onFormSubmit }) => {
                         To learn more about our Products,
                         <br className="sm:hidden" />
                         <span className="hidden sm:inline"> </span>
-                        please connect with our
-                        <br />
-                        <span className="font-bold text-brand-orange">Relationship Manager</span>
+                        Our <span className='font-bold text-brand-orange'>Relationship Manager</span> will connect with you shortly.
                     </p>
                 </div>
             </div>
@@ -209,7 +207,7 @@ const ResultsScreen = ({ score, total, onRestart, onFormSubmit }) => {
                             >
                                 <form onSubmit={handleFormSubmit} className="pt-4 space-y-3 text-left">
                                     <div>
-                                        <Label htmlFor="name" className="text-[10px] uppercase font-bold text-brand-blue">Full Name *</Label>
+                                        <Label htmlFor="name" className="text-[10px] uppercase font-bold text-brand-orange">Full Name *</Label>
                                         <Input
                                             id="name"
                                             placeholder="As per Govt ID"
