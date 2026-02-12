@@ -27,7 +27,13 @@ const QuizGame = () => {
     } = useQuiz();
 
     return (
-        <div className="w-screen h-screen bg-brand-blue flex flex-col font-sans transition-colors duration-300 overflow-hidden border-[6px] border-brand-blue">
+        <div
+            className="w-screen h-screen flex flex-col font-sans transition-colors duration-300 overflow-hidden border-[6px]"
+            style={{
+                background: 'linear-gradient(135deg, #005eb8 0%, #003d7a 50%, #002855 100%)',
+                borderColor: '#005eb8'
+            }}
+        >
             {/* Main Content */}
             <main className="w-full h-full flex flex-col items-center overflow-hidden">
                 <div className="w-full h-full max-w-[600px] flex flex-col items-center p-4 relative overflow-y-auto scrollbar-hide">

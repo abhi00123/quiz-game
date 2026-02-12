@@ -74,7 +74,8 @@
 
     /* Layout Helper */
     .game-container {
-        @apply min-h-screen bg-brand-blue flex flex-col items-center justify-center p-4;
+        @apply min-h-screen flex flex-col items-center justify-center p-4;
+        background: linear-gradient(135deg, #005eb8 0%, #003d7a 50%, #002855 100%);
     }
 }
 
@@ -89,14 +90,11 @@ body,
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #005eb8;
-    /* Keep blue background for outer margins */
+    background: linear-gradient(135deg, #005eb8 0%, #003d7a 50%, #002855 100%);
 }
 
 body {
     @apply text-slate-900 antialiased selection:bg-brand-orange selection:text-white;
-    background-image: radial-gradient(#ffffff 1px, transparent 1px);
-    background-size: 20px 20px;
 }
 
 /* Typography Overrides */
