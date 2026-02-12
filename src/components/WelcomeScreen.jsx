@@ -9,13 +9,13 @@ const WelcomeScreen = ({ onStart }) => {
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
         >
-            {/* Character Section */}
-            <div className="flex justify-center mb-6">
+            {/* Character Section - takes remaining space on mobile */}
+            <div className="flex-1 flex items-center justify-center min-h-0 overflow-hidden">
                 <motion.div
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.5 }}
-                    className="w-[70vw] h-[35vh] sm:w-[317px] sm:h-[300px]"
+                    className="w-full h-full max-w-[80%] sm:max-w-[317px]"
                 >
                     <img
                         src="/assets/gst.png"
@@ -26,7 +26,7 @@ const WelcomeScreen = ({ onStart }) => {
             </div>
 
             {/* Title Section */}
-            <div className="text-center space-y-4">
+            <div className="text-center space-y-3 sm:space-y-4 shrink-0">
                 <h1 className="text-4xl font-black text-white uppercase tracking-tight">
                     Life Insurance<br />GST Quiz
                 </h1>
@@ -42,7 +42,7 @@ const WelcomeScreen = ({ onStart }) => {
             </div>
 
             {/* Action Section */}
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4 pt-4 shrink-0">
                 <button
                     onClick={onStart}
                     className="w-full game-btn-orange text-2xl py-4 shadow-[0px_6px_0px_0px_rgba(194,65,12,1)]"
