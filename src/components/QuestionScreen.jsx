@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import QuizProgressBar from './QuizProgressBar';
+// Updated UI with enhanced option boxes and GST welcome image
 
 const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSelect, selectedAnswer }) => {
 
