@@ -89,14 +89,14 @@ body,
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #005eb8;
+    background: linear-gradient(180deg, #142B57 0%, #2E5590 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     /* Keep blue background for outer margins */
 }
 
 body {
     @apply text-slate-900 antialiased selection:bg-brand-orange selection:text-white;
-    background-image: radial-gradient(#ffffff 1px, transparent 1px);
-    background-size: 20px 20px;
 }
 
 /* Typography Overrides */

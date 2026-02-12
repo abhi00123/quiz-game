@@ -31,10 +31,10 @@ const WelcomeScreen = ({ onStart }) => {
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.5 }}
-                    className="w-[280px] h-[280px] bg-brand-blue"
+                    className="w-[317px] h-[430px]"
                 >
                     <img
-                        src="/assets/gst-welcome.png"
+                        src="/assets/gst.png"
                         alt="GST Quiz Character"
                         className="w-full h-full object-contain"
                     />

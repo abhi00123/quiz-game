@@ -51,7 +51,7 @@ const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSel
                             transition={{ delay: index * 0.1 }}
                             onClick={() => onAnswerSelect(index)}
                             disabled={selectedAnswer !== null}
-                            className={`w-full flex items-center group h-[100px] py-4 pr-6 pl-3 bg-brand-orange border-2 border-brand-orange transition-all ${selectedAnswer === index
+                            className={`w-full flex items-center group h-[100px] py-4 pr-6 pl-3 bg-brand-blue border-2 border-brand-blue transition-all ${selectedAnswer === index
                                 ? 'ring-4 ring-white/50 ring-offset-2 ring-offset-brand-blue shadow-[6px_6px_0px_0px_rgba(0,0,0,0.2)]'
                                 : 'shadow-[4px_4px_0px_0px_rgba(0,0,0,0.15)] sm:hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,0.2)] sm:hover:translate-x-[-2px] sm:hover:translate-y-[-2px]'
                                 }`}
@@ -59,8 +59,8 @@ const QuestionScreen = ({ question, currentQuestion, totalQuestions, onAnswerSel
                             <span className={`
                                 flex items-center justify-center w-12 h-12 mr-4 font-black border-2 text-xl transition-colors flex-shrink-0
                                 ${selectedAnswer === index
-                                    ? 'bg-white text-brand-orange border-white'
-                                    : 'bg-white text-brand-orange border-white'}
+                                    ? 'bg-white text-brand-blue border-white'
+                                    : 'bg-white text-brand-blue border-white'}
                             `}>
                                 {String.fromCharCode(65 + index)}
                             </span>
