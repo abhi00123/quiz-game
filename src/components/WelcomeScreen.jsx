@@ -10,12 +10,12 @@ const WelcomeScreen = ({ onStart }) => {
             transition={{ duration: 0.3 }}
         >
             {/* Character Section */}
-            <div className="flex justify-center -my-2">
+            <div className="flex justify-center mb-6">
                 <motion.div
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.5 }}
-                    className="w-[317px] h-[430px]"
+                    className="w-[70vw] h-[35vh] sm:w-[317px] sm:h-[300px]"
                 >
                     <img
                         src="/assets/gst.png"
