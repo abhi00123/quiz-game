@@ -9,22 +9,6 @@ const WelcomeScreen = ({ onStart }) => {
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
         >
-            {/* Logo Section */}
-            {/* <div className="flex justify-center">
-                <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.3 }}
-                    className="w-[180px] p-4 bg-white border-2 border-gray-100 shadow-sm"
-                >
-                    <img
-                        src="/assets/bajaj-life-logo.png"
-                        alt="Bajaj Life - Life Goals. Done."
-                        className="w-full h-auto object-contain"
-                    />
-                </motion.div>
-            </div> */}
-
             {/* Character Section */}
             <div className="flex justify-center -my-2">
                 <motion.div

@@ -74,7 +74,8 @@
 
     /* Layout Helper */
     .game-container {
-        @apply min-h-screen bg-brand-blue flex flex-col items-center justify-center p-4;
+        @apply min-h-screen flex flex-col items-center justify-center p-4;
+        background: linear-gradient(135deg, #005eb8 0%, #003d7a 50%, #002855 100%);
     }
 }
 
