@@ -145,7 +145,7 @@ const ResultsScreen = ({ score, total, onRestart, onFormSubmit }) => {
                 </div>
 
                 <div className="space-y-2">
-                    <h2 className="text-3xl font-black text-brand-blue uppercase tracking-tight leading-none">
+                    <h2 className="text-3xl font-black text-white uppercase tracking-tight leading-none">
                         {getResultTitle(score)}
                     </h2>
                     <div className="bg-brand-orange text-white text-[10px] font-black py-1.5 px-4 inline-block uppercase tracking-widest shadow-sm">
@@ -157,9 +157,16 @@ const ResultsScreen = ({ score, total, onRestart, onFormSubmit }) => {
                     <ScoreCard score={score} total={total} percentage={percentage} />
                 </div>
 
-                <div className="px-4 py-1">
-                    <p className="text-[11px] text-gray-500 font-bold leading-tight max-w-[280px] mx-auto uppercase tracking-tight">
-                        To learn more about our Products, please connect with our Relationship Manager
+                {/* Dashed Separator and CTA Message */}
+                <div className="px-4 py-2">
+                    <div className="border-t-2 border-dashed border-gray-300 mb-3 mx-auto max-w-[280px]"></div>
+                    <p className="text-xs sm:text-sm text-white/90 font-medium leading-relaxed max-w-[300px] mx-auto">
+                        To learn more about our Products,
+                        <br className="sm:hidden" />
+                        <span className="hidden sm:inline"> </span>
+                        please connect with our
+                        <br />
+                        <span className="font-bold text-brand-orange">Relationship Manager</span>
                     </p>
                 </div>
             </div>
@@ -176,9 +183,9 @@ const ResultsScreen = ({ score, total, onRestart, onFormSubmit }) => {
 
                 {/* OR Separator */}
                 <div className="flex items-center gap-2 py-0.5">
-                    <div className="h-[1px] flex-1 bg-brand-blue/10"></div>
-                    <span className="text-[10px] font-black text-brand-blue/20 tracking-widest">OR</span>
-                    <div className="h-[1px] flex-1 bg-brand-blue/10"></div>
+                    <div className="h-[1px] flex-1 bg-white/20"></div>
+                    <span className="text-[10px] font-black text-white/40 tracking-widest">OR</span>
+                    <div className="h-[1px] flex-1 bg-white/20"></div>
                 </div>
 
                 {/* Talk to Expert Collapsible */}
@@ -240,7 +247,7 @@ const ResultsScreen = ({ score, total, onRestart, onFormSubmit }) => {
 
                 <button
                     onClick={onRestart}
-                    className="w-full py-4 text-brand-blue font-black border-2 border-brand-blue hover:bg-blue-50 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest text-xs"
+                    className="w-full py-4 text-white font-black border-2 border-white hover:bg-white/10 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest text-xs"
                 >
                     <RotateCcw className="w-4 h-4" />
                     <span>PLAY AGAIN</span>

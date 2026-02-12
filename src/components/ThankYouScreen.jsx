@@ -26,7 +26,7 @@ const ThankYouScreen = ({ userName, onRestart }) => {
 
                 {/* Thank You Message */}
                 <div className="space-y-2">
-                    <h2 className="text-3xl font-black text-brand-blue uppercase tracking-tight leading-none">
+                    <h2 className="text-3xl font-black text-white uppercase tracking-tight leading-none">
                         Thank You{userName ? `, ${userName}` : ''}!
                     </h2>
                     <div className="bg-brand-orange text-white text-[10px] font-black py-1 px-4 inline-block uppercase tracking-widest">
@@ -35,17 +35,17 @@ const ThankYouScreen = ({ userName, onRestart }) => {
                 </div>
 
                 {/* Expert Contact Info */}
-                <div className="bg-blue-50 border-2 border-brand-blue p-4 text-left relative mx-auto max-w-sm">
+                <div className="bg-white/10 border-2 border-white/30 p-4 text-left relative mx-auto max-w-sm backdrop-blur-sm">
                     <div className="absolute -top-3 -right-3 bg-brand-orange text-white text-[10px] font-black px-3 py-1 rotate-3 shadow-md">
                         24 HOURS
                     </div>
                     <div className="flex items-start gap-4">
-                        <div className="p-3 bg-white border-2 border-brand-blue flex-shrink-0">
-                            <Phone className="w-6 h-6 text-brand-blue" />
+                        <div className="p-3 bg-white border-2 border-white flex-shrink-0">
+                            <Phone className="w-6 h-6 text-brand-orange" />
                         </div>
                         <div>
-                            <h4 className="font-black text-brand-blue uppercase tracking-wide text-sm mb-1">Our expert will call you</h4>
-                            <p className="text-xs text-brand-blue/70 font-bold leading-tight uppercase">Get personalized guidance for your life goals.</p>
+                            <h4 className="font-black text-white uppercase tracking-wide text-sm mb-1">Our expert will call you</h4>
+                            <p className="text-xs text-white/80 font-bold leading-tight uppercase">Get personalized guidance for your life goals.</p>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@ const ThankYouScreen = ({ userName, onRestart }) => {
                 {/* Rotating Insurance Text */}
                 <div className="py-2">
                     <div className="flex items-center justify-center gap-2 text-xl font-black">
-                        <span className="text-gray-400 uppercase text-xs tracking-widest">Buy</span>
+                        <span className="text-white/70 uppercase text-xs tracking-widest">Buy</span>
                         <RotatingText
                             texts={['Term', 'ULIP', 'Savings']}
                             mainClassName="inline-flex px-3 bg-brand-blue text-white py-1 font-black min-w-[90px] justify-center uppercase text-base"
@@ -66,7 +66,7 @@ const ThankYouScreen = ({ userName, onRestart }) => {
                             transition={{ type: "spring", damping: 30, stiffness: 400 }}
                             rotationInterval={2000}
                         />
-                        <span className="text-gray-400 uppercase text-xs tracking-widest">Insurance</span>
+                        <span className="text-white/70 uppercase text-xs tracking-widest">Insurance</span>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@ const ThankYouScreen = ({ userName, onRestart }) => {
                         <span>REPLAY QUIZ</span>
                     </div>
                 </button>
-                <p className="text-[10px] text-gray-400 font-black text-center uppercase tracking-widest">
+                <p className="text-[10px] text-white/60 font-black text-center uppercase tracking-widest">
                     BAJAJ ALLIANZ LIFE INSURANCE
                 </p>
             </div>

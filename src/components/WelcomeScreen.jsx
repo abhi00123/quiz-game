@@ -25,17 +25,33 @@ const WelcomeScreen = ({ onStart }) => {
                 </motion.div>
             </div>
 
+            {/* Character Section */}
+            <div className="flex justify-center -my-2">
+                <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.5 }}
+                    className="w-[280px] h-[280px] bg-brand-blue"
+                >
+                    <img
+                        src="/assets/gst-welcome.png"
+                        alt="GST Quiz Character"
+                        className="w-full h-full object-contain"
+                    />
+                </motion.div>
+            </div>
+
             {/* Title Section */}
             <div className="text-center space-y-4">
-                <h1 className="text-4xl font-black text-brand-blue uppercase tracking-tight">
+                <h1 className="text-4xl font-black text-white uppercase tracking-tight">
                     Life Insurance<br />GST Quiz
                 </h1>
 
-                <div className="bg-blue-50 border-2 border-brand-blue p-4 mx-2 text-left">
+                <div className="bg-white/10 border-2 border-white/30 p-4 mx-2 text-left backdrop-blur-sm">
                     <p className="text-lg text-brand-orange font-black mb-1 uppercase">
                         Did you know?
                     </p>
-                    <p className="text-sm text-gray-700 font-bold leading-tight uppercase">
+                    <p className="text-sm text-white font-bold leading-tight uppercase">
                         Life insurance attracts 0% GST! Test your knowledge now.
                     </p>
                 </div>
@@ -49,7 +65,7 @@ const WelcomeScreen = ({ onStart }) => {
                 >
                     START GAME
                 </button>
-                <p className="text-[10px] text-gray-400 font-black text-center uppercase tracking-widest">
+                <p className="text-[10px] text-white/60 font-black text-center uppercase tracking-widest">
                     QUEST DATA IS SECURED & PRIVATE
                 </p>
             </div>
