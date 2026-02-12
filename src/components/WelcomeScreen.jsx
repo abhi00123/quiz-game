@@ -10,7 +10,7 @@ const WelcomeScreen = ({ onStart }) => {
             transition={{ duration: 0.3 }}
         >
             {/* Logo Section */}
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
                 <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -23,7 +23,7 @@ const WelcomeScreen = ({ onStart }) => {
                         className="w-full h-auto object-contain"
                     />
                 </motion.div>
-            </div>
+            </div> */}
 
             {/* Character Section */}
             <div className="flex justify-center -my-2">
