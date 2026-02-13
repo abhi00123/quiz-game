@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useCallback } from 'react';
 import { getShuffledQuestions } from '../data/questions';
 import { useSound } from '../hooks/useSound';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { submitToLMS } from '../utils/api';
 
 // Screen constants
 export const SCREENS = {
@@ -25,7 +26,11 @@ export const QuizProvider = ({ children }) => {
     const [userAnswers, setUserAnswers] = useState([]);
     const [score, setScore] = useState(0);
     const [showFeedback, setShowFeedback] = useState(false);
-    const [userName, setUserName] = useState('');
+
+    // Lead Management
+    const [leadName, setLeadName] = useState('');
+    const [leadPhone, setLeadPhone] = useState('');
+    const [isLeadSubmitted, setIsLeadSubmitted] = useState(false);
 
     // Hooks
     const { playSound } = useSound();
@@ -102,10 +107,68 @@ export const QuizProvider = ({ children }) => {
         setShowFeedback(false);
     }, []);
 
-    const handleFormSubmit = useCallback((name) => {
-        setUserName(name);
-        setCurrentScreen(SCREENS.THANK_YOU);
-    }, []);
+    const retakeQuiz = useCallback(() => {
+        const shuffled = getShuffledQuestions();
+        setQuestions(shuffled);
+        setCurrentScreen(SCREENS.QUESTION);
+        setCurrentQuestionIndex(0);
+        setScore(0);
+        setUserAnswers([]);
+        setSelectedAnswer(null);
+        setShowFeedback(false);
+        playSound('start');
+    }, [playSound]);
+
+    const onLeadSubmit = useCallback(async (name, phone) => {
+        // Automatic Preferred Callback Logic
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const preferredDate = tomorrow.toISOString().split('T')[0]; // YYYY-MM-DD
+        const preferredTime = '09:00 AM';
+
+        // Fresh submission
+        console.log('Attempting lead submission to Bajaj LMS...');
+        const result = await submitToLMS({
+            name,
+            mobile_no: phone,
+            goal_name: 'Quiz Game',
+            param4: new Date().toISOString(),
+            param19: preferredDate,
+            param23: preferredTime,
+            summary_dtls: 'Lead Submission'
+        });
+
+        if (result.success) {
+            setLeadName(name);
+            setLeadPhone(phone);
+            setIsLeadSubmitted(true);
+        }
+
+        return result;
+    }, [setLeadName, setLeadPhone]);
+
+    const handleBookingSubmit = useCallback(async (bookingData) => {
+        // bookingData includes potentially edited name and phone
+        const result = await submitToLMS({
+            name: bookingData.name,
+            mobile_no: bookingData.mobile_no,
+            goal_name: 'Quiz Booking',
+            param4: bookingData.booking_timestamp || new Date().toISOString(),
+            param19: bookingData.date,
+            param23: bookingData.timeSlot,
+            summary_dtls: 'Booking Request'
+        });
+
+        if (result.success) {
+            // Update local storage if they edited their details during booking
+            if (bookingData.name) setLeadName(bookingData.name);
+            if (bookingData.mobile_no) setLeadPhone(bookingData.mobile_no);
+
+            setCurrentScreen(SCREENS.THANK_YOU);
+        }
+
+        return result;
+    }, [setLeadName, setLeadPhone]);
 
     // Context value
     const value = {
@@ -119,7 +182,9 @@ export const QuizProvider = ({ children }) => {
         userAnswers,
         score,
         showFeedback,
-        userName,
+        leadName,
+        leadPhone,
+        isLeadSubmitted,
         highScore,
 
         // Actions
@@ -127,7 +192,10 @@ export const QuizProvider = ({ children }) => {
         handleAnswerSelect,
         handleNextQuestion,
         handleRestart,
-        handleFormSubmit,
+        retakeQuiz,
+        onLeadSubmit,
+        handleBookingSubmit,
+        setCurrentScreen,
     };
 
     return (
