@@ -59,36 +59,34 @@ const WelcomeScreen = ({ onStart }) => {
 
     return (
         <motion.div
-            className="w-full h-full flex flex-col justify-between py-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
+            className="w-full h-full flex flex-col items-center px-4 pt-6 pb-6 max-w-md mx-auto"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
         >
             {/* Character Section */}
-            <div className="flex-1 flex items-center justify-center min-h-0 overflow-hidden">
-                <motion.div
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.5 }}
-                    className="w-full h-full max-w-[80%] sm:max-w-[317px]"
-                >
-                    <img
-                        src="/assets/gst.png"
-                        alt="GST Quiz Character"
-                        className="w-full h-full object-contain"
-                    />
-                </motion.div>
-            </div>
+            <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 180, damping: 18, delay: 0.4 }}
+                className="flex items-center justify-center w-full max-h-[45vh] mb-4"
+            >
+                <img
+                    src="/assets/gst.png"
+                    alt="GST Quiz Character"
+                    className="object-contain max-h-full w-auto"
+                />
+            </motion.div>
 
             {/* Title Section */}
-            <div className="text-center space-y-3 sm:space-y-4 shrink-0">
-                <h1 className="text-4xl font-black text-white uppercase tracking-tight">
-                    Life Insurance<br />GST Quiz
+            <div className="w-full text-center space-y-8">
+                <h1 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
+                    Life Insurance <br /> GST Quiz
                 </h1>
 
-                <div className="bg-white/10 border-2 border-white/30 p-4 mx-2 text-left backdrop-blur-sm rounded-xl">
-                    <p className="text-lg text-brand-orange font-black mb-1 uppercase">
+                <div className="bg-white/10 border-2 border-white/30 p-4 text-left backdrop-blur-sm">
+                    <p className="text-base text-brand-orange font-black mb-1 uppercase">
                         Did you know?
                     </p>
                     <p className="text-sm text-white font-bold leading-tight uppercase">
@@ -98,13 +96,14 @@ const WelcomeScreen = ({ onStart }) => {
             </div>
 
             {/* Action Section */}
-            <div className="space-y-3 sm:space-y-4 pt-4 shrink-0">
+            <div className="w-full mt-5 space-y-9">
                 <button
-                    onClick={handleStartClick}
-                    className="w-full game-btn-orange text-2xl py-4 shadow-[0px_6px_0px_0px_rgba(194,65,12,1)]"
+                    onClick={onStart}
+                    className="w-full game-btn-orange text-xl py-3 shadow-[0px_5px_0px_0px_rgba(194,65,12,1)]"
                 >
                     START GAME
                 </button>
+
                 <p className="text-[10px] text-white/60 font-black text-center uppercase tracking-widest">
                     QUEST DATA IS SECURED & PRIVATE
                 </p>
@@ -242,4 +241,4 @@ const WelcomeScreen = ({ onStart }) => {
     );
 };
 
-export default WelcomeScreen;
+export default WelcomeScreen;                                                        
