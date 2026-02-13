@@ -27,14 +27,15 @@ const ResultsScreen = ({ score, total, onRestart }) => {
     ];
 
     const handleShare = async () => {
-        const shareText = `I just scored ${score}/${total} on the GST Quiz! 🏆 Try it yourself and see if you can beat my score. Play here: ${window.location.href}`;
+        const shareMessage = `I scored ${score}/${total} on the GST Quiz! 🏆 Check your GST knowledge here:`;
+        const shareUrl = window.location.href;
 
         if (navigator.share) {
             try {
                 await navigator.share({
-                    title: 'GST Quiz Score',
-                    text: shareText,
-                    url: window.location.href,
+                    title: 'GST Quiz',
+                    text: shareMessage,
+                    url: shareUrl,
                 });
             } catch (error) {
                 console.log('Error sharing:', error);
@@ -42,7 +43,8 @@ const ResultsScreen = ({ score, total, onRestart }) => {
         } else {
             // Fallback: Copy to clipboard
             try {
-                await navigator.clipboard.writeText(shareText);
+                const fullText = `${shareMessage} ${shareUrl}`;
+                await navigator.clipboard.writeText(fullText);
                 alert('Score and link copied to clipboard!');
             } catch (err) {
                 console.error('Failed to copy text: ', err);
@@ -54,8 +56,12 @@ const ResultsScreen = ({ score, total, onRestart }) => {
         e.preventDefault();
         setError('');
 
-        if (!bookingData.date) {
-            setError('Please select a date');
+        const selectedDate = new Date(bookingData.date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (!bookingData.date || selectedDate < today) {
+            setError('Please select a valid future date');
             return;
         }
         if (!bookingData.timeSlot) {
