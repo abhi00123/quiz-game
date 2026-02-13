@@ -86,7 +86,7 @@ const ResultsScreen = ({ score, total, onRestart }) => {
     // Custom title based on score
     const getResultTitle = (currentScore) => {
         if (currentScore === 0) return "LEARNING BEGINS";
-        if (currentScore === 1) return "KEEP GOING";
+        if (currentScore <= 2) return "KEEP GOING";
         if (currentScore <= 3) return "GOOD ATTEMPT";
         if (currentScore === 4) return "WELL DONE";
         return "OUTSTANDING";
@@ -95,7 +95,7 @@ const ResultsScreen = ({ score, total, onRestart }) => {
     // Custom motivational message based on score
     const getMotivationalMessage = (currentScore) => {
         if (currentScore === 0) return "NO WORRIES — LET’S TRY AGAIN!";
-        if (currentScore === 1) return "NOT QUITE THERE YET — YOU CAN DO BETTER!";
+        if (currentScore <= 2) return "NOT QUITE THERE YET — YOU CAN DO BETTER!";
         if (currentScore <= 3) return "GOOD EFFORT — YOU CAN DO BETTER!";
         if (currentScore === 4) return "YOU’VE LEARNED IMPORTANT FINANCIAL AND INSURANCE CONCEPTS.";
         return "EXCELLENT! YOU ARE A GST EXPERT!";
