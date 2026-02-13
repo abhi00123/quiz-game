@@ -18,12 +18,10 @@ const QuizGame = () => {
         selectedAnswer,
         showFeedback,
         score,
-        userName,
         startQuiz,
         handleAnswerSelect,
         handleNextQuestion,
         handleRestart,
-        handleFormSubmit,
     } = useQuiz();
 
     return (
@@ -70,16 +68,11 @@ const QuizGame = () => {
                                 score={score}
                                 total={totalQuestions}
                                 onRestart={handleRestart}
-                                onFormSubmit={handleFormSubmit}
                             />
                         )}
 
                         {currentScreen === SCREENS.THANK_YOU && (
-                            <ThankYouScreen
-                                key="thankyou"
-                                userName={userName}
-                                onRestart={handleRestart}
-                            />
+                            <ThankYouScreen key="thankyou" />
                         )}
                     </AnimatePresence>
                 </div>
