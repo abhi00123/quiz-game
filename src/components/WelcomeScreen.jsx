@@ -42,16 +42,8 @@ const WelcomeScreen = ({ onStart }) => {
         setIsSubmitting(false);
 
         if (result.success) {
-            if (result.duplicate) {
-                setError('You have already registered.');
-                setTimeout(() => {
-                    setIsOpen(false);
-                    onStart();
-                }, 1500);
-            } else {
-                setIsOpen(false);
-                onStart();
-            }
+            setIsOpen(false);
+            onStart();
         } else {
             setError(result.error || 'Something went wrong. Please try again.');
         }
@@ -137,6 +129,9 @@ const WelcomeScreen = ({ onStart }) => {
                                     WELCOME<br />
                                     <span className="text-sm opacity-70">What should we call you</span>
                                 </Dialog.Title>
+                                <Dialog.Description className="sr-only">
+                                    Please provide your name and mobile number to start the quiz quest.
+                                </Dialog.Description>
 
                                 <form onSubmit={handleSubmit} className="space-y-5">
                                     <div className="space-y-1.5">
@@ -229,6 +224,9 @@ const WelcomeScreen = ({ onStart }) => {
                                         <Dialog.Title className="text-xl font-black text-white mb-6 uppercase tracking-tight">
                                             Terms & Conditions
                                         </Dialog.Title>
+                                        <Dialog.Description className="sr-only">
+                                            Terms and conditions for Bajaj Allianz Life Insurance communication.
+                                        </Dialog.Description>
                                         <div className="text-sm text-white/70 font-medium space-y-4 max-h-[60vh] overflow-y-auto pr-4 custom-scrollbar">
                                             <p>I hereby authorize Bajaj Life Insurance Limited to call me on the contact number made available by me on the website with a specific request to call back. I further declare that, irrespective of my contact number being registered on National Customer Preference Register (NCPR) or on National Do Not Call Registry (NDNC), any call made, SMS or WhatsApp sent in response to my request shall not be construed as an Unsolicited Commercial Communication even though the content of the call may be for the purposes of explaining various insurance products and services or solicitation and procurement of insurance business.</p>
                                             <p>Please refer to <a href="https://www.bajajallianzlife.com/privacy-policy.html" target="_blank" rel="noopener noreferrer" className="text-brand-orange hover:underline font-bold">BALIC Privacy Policy</a>.</p>

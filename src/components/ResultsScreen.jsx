@@ -85,14 +85,20 @@ const ResultsScreen = ({ score, total, onRestart }) => {
 
     // Custom title based on score
     const getResultTitle = (currentScore) => {
-        return currentScore >= 3 ? "CONGRATULATIONS!" : "LEARNING BEGINS";
+        if (currentScore === 0) return "LEARNING BEGINS";
+        if (currentScore === 1) return "KEEP GOING";
+        if (currentScore <= 3) return "GOOD ATTEMPT";
+        if (currentScore === 4) return "WELL DONE";
+        return "OUTSTANDING";
     };
 
     // Custom motivational message based on score
     const getMotivationalMessage = (currentScore) => {
-        return currentScore >= 3
-            ? "YOU'VE JUST ACED THE QUIZ!"
-            : "No worries, let's help you";
+        if (currentScore === 0) return "NO WORRIES — LET’S TRY AGAIN!";
+        if (currentScore === 1) return "NOT QUITE THERE YET — YOU CAN DO BETTER!";
+        if (currentScore <= 3) return "GOOD EFFORT — YOU CAN DO BETTER!";
+        if (currentScore === 4) return "YOU’VE LEARNED IMPORTANT FINANCIAL AND INSURANCE CONCEPTS.";
+        return "EXCELLENT! YOU ARE A GST EXPERT!";
     };
 
     return (
@@ -102,10 +108,10 @@ const ResultsScreen = ({ score, total, onRestart }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
         >
-            {/* Top Right Share Icon */}
+            {/* Top Right Share Icon - SHARP EDGES */}
             <button
                 onClick={handleShare}
-                className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors z-10"
+                className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-none text-white transition-colors z-10"
                 aria-label="Share results"
             >
                 <Share2 className="w-5 h-5" />
@@ -117,7 +123,7 @@ const ResultsScreen = ({ score, total, onRestart }) => {
                     <motion.div
                         animate={{ rotate: [0, -5, 5, -5, 5, 0] }}
                         transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                        className="p-2 bg-white border-4 border-brand-orange shadow-sm"
+                        className="p-2 bg-white border-4 border-brand-orange shadow-sm rounded-none"
                     >
                         <Trophy className="w-10 h-10 text-brand-orange" strokeWidth={1.5} />
                     </motion.div>
@@ -136,51 +142,55 @@ const ResultsScreen = ({ score, total, onRestart }) => {
                     <ScoreCard score={score} total={total} percentage={percentage} />
                 </div>
 
-                {/* Dashed Separator and CTA Message */}
-                <div className="px-4 py-1">
-                    <div className="border-t-2 border-dashed border-gray-300 mb-2 mx-auto max-w-[280px]"></div>
-                    <p className="text-[10px] sm:text-xs text-white/90 font-medium leading-tight max-w-[300px] mx-auto">
-                        To learn more about our Products,
-                        <br />
-                        Our <span className='font-bold text-brand-orange'>Relationship Manager</span> will connect with you shortly.
-                    </p>
-                </div>
             </div>
 
-            <div className="space-y-2 mt-2">
-                {/* Book Slot Button */}
-                <button
-                    onClick={() => setIsBookingOpen(true)}
-                    className="w-full game-btn-orange text-lg py-3 flex items-center justify-center gap-2 shadow-[0px_4px_0px_0px_rgba(194,65,12,1)]"
-                >
-                    <Calendar className="w-5 h-5 flex-shrink-0" />
-                    <span>BOOK A CONVENIENT SLOT</span>
-                </button>
-
-                {/* Call Button */}
-                <a
-                    href="tel:18002097272"
-                    className="w-full game-btn text-lg py-3 flex items-center justify-center gap-2 shadow-[0px_4px_0px_0px_rgba(30,58,138,1)]"
-                >
-                    <Phone className="w-4 h-4 flex-shrink-0" />
-                    <span>CALL US NOW</span>
-                </a>
-
-                {/* Share Button */}
+            <div className="mt-2 flex flex-col items-center gap-4">
+                {/* Top Share Button */}
                 <button
                     onClick={handleShare}
-                    className="w-full game-btn-orange text-lg py-3 flex items-center justify-center gap-2 shadow-[0px_4px_0px_0px_rgba(194,65,12,1)] brightness-110"
+                    className="game-btn-orange text-lg py-2.5 px-12 flex items-center justify-center gap-2 shadow-[0px_4px_0px_0px_rgba(194,65,12,1)] uppercase font-black rounded-none"
                 >
                     <Share2 className="w-5 h-5 flex-shrink-0" />
-                    <span>SHARE YOUR SCORE</span>
+                    <span>SHARE</span>
                 </button>
+
+                {/* Glassmorphic Action Card - SHARP EDGES */}
+                <div className="bg-white/10 border-2 border-white/20 backdrop-blur-xl rounded-none p-6 w-full max-w-[400px] shadow-2xl relative overflow-hidden ring-1 ring-white/10">
+                    <p className="text-white text-xs font-bold text-center mb-6 px-2 opacity-90">
+                        Attention! Connect with our Relationship Manager to get started.
+                    </p>
+
+                    <div className="space-y-3">
+                        <a
+                            href="tel:18002097272"
+                            className="w-full bg-[#0066B2] hover:bg-[#005a9e] text-white text-lg py-3.5 flex items-center justify-center gap-2 rounded-none shadow-[0px_3px_0px_0px_rgba(30,58,138,1)] uppercase font-black transition-colors"
+                        >
+                            <Phone className="w-5 h-5 flex-shrink-0" />
+                            <span>CALL NOW</span>
+                        </a>
+
+                        <div className="flex items-center justify-center gap-4">
+                            <div className="h-[1px] bg-white/10 flex-1"></div>
+                            <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">OR</span>
+                            <div className="h-[1px] bg-white/10 flex-1"></div>
+                        </div>
+
+                        <button
+                            onClick={() => setIsBookingOpen(true)}
+                            className="w-full game-btn-orange text-[14px] sm:text-lg py-3.5 flex items-center justify-center gap-2 rounded-none shadow-[0px_3px_0px_0px_rgba(194,65,12,1)] uppercase font-black transition-all whitespace-nowrap"
+                        >
+                            <Calendar className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                            <span>BOOK A CONVENIENT SLOT</span>
+                        </button>
+                    </div>
+                </div>
 
                 <button
                     onClick={onRestart}
-                    className="w-full py-2.5 text-white font-black border-2 border-white hover:bg-white/10 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest text-[10px]"
+                    className="py-2 text-white font-black hover:opacity-80 transition-all flex items-center justify-center gap-2 uppercase tracking-[0.2em] text-[10px]"
                 >
-                    <RotateCcw className="w-3.5 h-3.5" />
-                    <span>PLAY AGAIN</span>
+                    <RotateCcw className="w-4 h-4" />
+                    <span>RETAKE QUIZ</span>
                 </button>
             </div>
 
@@ -205,6 +215,9 @@ const ResultsScreen = ({ score, total, onRestart }) => {
                                 <Dialog.Title className="text-2xl font-black text-white text-center mb-1 uppercase tracking-tight">
                                     Book a Slot
                                 </Dialog.Title>
+                                <Dialog.Description className="sr-only">
+                                    Choose your preferred date and time for a callback from our relationship manager.
+                                </Dialog.Description>
                                 <p className="text-center text-white/60 text-[10px] font-black uppercase tracking-widest mb-8">
                                     Pick your preferred time
                                 </p>

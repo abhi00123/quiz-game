@@ -30,7 +30,6 @@ export const QuizProvider = ({ children }) => {
     // Lead Management
     const [leadName, setLeadName] = useState('');
     const [leadPhone, setLeadPhone] = useState('');
-    const [lastSubmittedPhone, setLastSubmittedPhone] = useLocalStorage('quizLastSubmittedPhone', '');
     const [isLeadSubmitted, setIsLeadSubmitted] = useState(false);
 
     // Hooks
@@ -121,13 +120,6 @@ export const QuizProvider = ({ children }) => {
     }, [playSound]);
 
     const onLeadSubmit = useCallback(async (name, phone) => {
-        // Duplicate Lead Prevention: Check if same phone was submitted this session
-        if (phone === lastSubmittedPhone) {
-            console.log('Duplicate submission detected');
-            setIsLeadSubmitted(true);
-            return { success: true, duplicate: true };
-        }
-
         // Automatic Preferred Callback Logic
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
@@ -149,12 +141,11 @@ export const QuizProvider = ({ children }) => {
         if (result.success) {
             setLeadName(name);
             setLeadPhone(phone);
-            setLastSubmittedPhone(phone);
             setIsLeadSubmitted(true);
         }
 
         return result;
-    }, [lastSubmittedPhone, setLeadName, setLeadPhone, setLastSubmittedPhone]);
+    }, [setLeadName, setLeadPhone]);
 
     const handleBookingSubmit = useCallback(async (bookingData) => {
         // bookingData includes potentially edited name and phone
@@ -193,7 +184,6 @@ export const QuizProvider = ({ children }) => {
         showFeedback,
         leadName,
         leadPhone,
-        lastSubmittedPhone,
         isLeadSubmitted,
         highScore,
 
