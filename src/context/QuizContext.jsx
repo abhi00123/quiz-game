@@ -108,8 +108,6 @@ export const QuizProvider = ({ children }) => {
     }, []);
 
     const retakeQuiz = useCallback(() => {
-        const shuffled = getShuffledQuestions();
-        setQuestions(shuffled);
         setCurrentScreen(SCREENS.WELCOME);
         setCurrentQuestionIndex(0);
         setScore(0);

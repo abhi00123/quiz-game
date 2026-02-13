@@ -203,7 +203,7 @@ const ResultsScreen = ({ score, total, onRestart }) => {
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                                className="bg-white/10 border-2 border-white/20 backdrop-blur-2xl rounded-none p-8 w-full max-w-md shadow-2xl relative overflow-hidden"
+                                className="bg-white/10 border-2 border-white/20 backdrop-blur-2xl rounded-[2rem] p-8 w-full max-w-md shadow-2xl relative overflow-hidden"
                             >
                                 <button
                                     onClick={() => setIsBookingOpen(false)}
