@@ -42,7 +42,7 @@ const ThankYouScreen = () => {
             <div className="space-y-6">
                 <button
                     onClick={retakeQuiz}
-                    className="w-full game-btn-orange text-3xl py-6 shadow-[0px_8px_0px_0px_rgba(194,65,12,1)] rounded-2xl"
+                    className="w-full game-btn-orange text-3xl py-6 shadow-[0px_8px_0px_0px_rgba(194,65,12,1)] rounded-none"
                 >
                     <div className="flex items-center justify-center gap-4">
                         <RotateCcw className="w-8 h-8" />

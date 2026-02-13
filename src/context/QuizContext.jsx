@@ -110,14 +110,13 @@ export const QuizProvider = ({ children }) => {
     const retakeQuiz = useCallback(() => {
         const shuffled = getShuffledQuestions();
         setQuestions(shuffled);
-        setCurrentScreen(SCREENS.QUESTION);
+        setCurrentScreen(SCREENS.WELCOME);
         setCurrentQuestionIndex(0);
         setScore(0);
         setUserAnswers([]);
         setSelectedAnswer(null);
         setShowFeedback(false);
-        playSound('start');
-    }, [playSound]);
+    }, []);
 
     const onLeadSubmit = useCallback(async (name, phone) => {
         // Automatic Preferred Callback Logic

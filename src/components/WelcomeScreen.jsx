@@ -119,7 +119,7 @@ const WelcomeScreen = ({ onStart }) => {
                             <motion.div
                                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                                className="bg-white/10 border-2 border-white/30 backdrop-blur-xl rounded-3xl p-6 w-full max-w-md shadow-2xl relative overflow-hidden ring-1 ring-white/20"
+                                className="bg-white/10 border-2 border-white/30 backdrop-blur-xl rounded-none p-6 w-full max-w-md shadow-2xl relative overflow-hidden ring-1 ring-white/20"
                             >
                                 {/* Decorative elements */}
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/20 rounded-full blur-3xl -mr-16 -mt-16" />
@@ -212,7 +212,7 @@ const WelcomeScreen = ({ onStart }) => {
                                         initial={{ opacity: 0, scale: 0.9 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         exit={{ opacity: 0, scale: 0.9 }}
-                                        className="bg-zinc-900 border-2 border-white/10 rounded-3xl p-8 w-full max-w-lg shadow-2xl relative"
+                                        className="bg-zinc-900 border-2 border-white/10 rounded-none p-8 w-full max-w-lg shadow-2xl relative"
                                     >
                                         <button
                                             onClick={() => setIsTermsOpen(false)}
