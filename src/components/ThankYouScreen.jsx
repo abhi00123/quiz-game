@@ -3,7 +3,7 @@ import { CheckCircle2, RotateCcw } from "lucide-react";
 import { useQuiz } from '../context/QuizContext';
 
 const ThankYouScreen = () => {
-    const { retakeQuiz } = useQuiz();
+    const { retakeQuiz, leadName } = useQuiz();
 
     return (
         <motion.div
@@ -30,7 +30,7 @@ const ThankYouScreen = () => {
                 {/* Thank You Message */}
                 <div className="space-y-4">
                     <h2 className="text-4xl font-black text-white uppercase tracking-tight leading-tight">
-                        Thank You for<br />sharing your details
+                        Thank You {leadName ? leadName : ''} for<br />sharing your details
                     </h2>
                     <p className="text-lg text-white/80 font-bold uppercase tracking-wide max-w-[280px] mx-auto leading-relaxed">
                         Our Relationship Manager will reach out to you

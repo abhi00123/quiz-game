@@ -31,6 +31,7 @@ export const QuizProvider = ({ children }) => {
     const [leadName, setLeadName] = useState('');
     const [leadPhone, setLeadPhone] = useState('');
     const [isLeadSubmitted, setIsLeadSubmitted] = useState(false);
+    const [isTermsAccepted, setIsTermsAccepted] = useState(false);
 
     // Hooks
     const { playSound } = useSound();
@@ -182,7 +183,9 @@ export const QuizProvider = ({ children }) => {
         leadName,
         leadPhone,
         isLeadSubmitted,
+        isTermsAccepted,
         highScore,
+        setIsTermsAccepted,
 
         // Actions
         startQuiz,

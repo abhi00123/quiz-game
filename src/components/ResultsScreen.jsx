@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, RotateCcw, Phone, Calendar, Clock, X, CheckCircle2, ChevronDown, Share2 } from "lucide-react";
+import { Trophy, RotateCcw, Phone, Calendar, Clock, X, CheckCircle2, ChevronDown, Share2, ShieldCheck } from "lucide-react";
 import ScoreCard from './ScoreCard';
 import Confetti from './Confetti';
 import * as Dialog from '@radix-ui/react-dialog';
 import { useQuiz } from '../context/QuizContext';
 
 const ResultsScreen = ({ score, total, onRestart }) => {
-    const { leadName, leadPhone, handleBookingSubmit } = useQuiz();
+    const { leadName, leadPhone, handleBookingSubmit, isTermsAccepted } = useQuiz();
     const percentage = (score / total) * 100;
     const [isBookingOpen, setIsBookingOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [bookingTermsAccepted, setBookingTermsAccepted] = useState(isTermsAccepted);
     const [bookingData, setBookingData] = useState({
         name: leadName || '',
         mobile_no: leadPhone || '',
@@ -68,6 +69,10 @@ const ResultsScreen = ({ score, total, onRestart }) => {
             setError('Please select a time slot');
             return;
         }
+        if (!bookingTermsAccepted) {
+            setError('Please accept the Terms & Conditions');
+            return;
+        }
 
         setIsSubmitting(true);
         const result = await handleBookingSubmit({
@@ -119,7 +124,10 @@ const ResultsScreen = ({ score, total, onRestart }) => {
             {percentage >= 60 && <Confetti />}
 
             <div className="flex-1 flex flex-col justify-center space-y-4">
-                <div className="flex justify-center pt-0">
+                <div className="flex justify-center pt-0 flex-col items-center">
+                    <p className="text-white font-black text-sm uppercase tracking-widest mb-4">
+                        HI {leadName ? leadName.toUpperCase() : 'FRIEND'}
+                    </p>
                     <motion.div
                         animate={{ rotate: [0, -5, 5, -5, 5, 0] }}
                         transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
@@ -139,7 +147,7 @@ const ResultsScreen = ({ score, total, onRestart }) => {
                 </div>
 
                 <div className="py-1">
-                    <ScoreCard score={score} total={total} percentage={percentage} />
+                    <ScoreCard score={score} total={total} />
                 </div>
 
             </div>
@@ -275,6 +283,15 @@ const ResultsScreen = ({ score, total, onRestart }) => {
                                                 ))}
                                             </select>
                                             <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 pointer-events-none" />
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start gap-3 group cursor-pointer" onClick={() => setBookingTermsAccepted(!bookingTermsAccepted)}>
+                                        <div className={`shrink-0 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${bookingTermsAccepted ? 'bg-brand-orange border-brand-orange' : 'border-white/30 bg-white/5'}`}>
+                                            {bookingTermsAccepted && <ShieldCheck className="w-4 h-4 text-white" />}
+                                        </div>
+                                        <div className="text-[11px] text-white/80 font-bold leading-tight uppercase">
+                                            I accept the Terms & Conditions and acknowledge the privacy policy.
                                         </div>
                                     </div>
 

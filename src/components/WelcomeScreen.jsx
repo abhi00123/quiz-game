@@ -5,20 +5,19 @@ import { useQuiz } from '../context/QuizContext';
 import { ShieldCheck, X } from 'lucide-react';
 
 const WelcomeScreen = ({ onStart }) => {
-    const { onLeadSubmit, leadName: savedName, leadPhone: savedPhone, isLeadSubmitted } = useQuiz();
+    const { onLeadSubmit, leadName: savedName, leadPhone: savedPhone, isLeadSubmitted, isTermsAccepted, setIsTermsAccepted } = useQuiz();
     const [isOpen, setIsOpen] = useState(false);
     const [isTermsOpen, setIsTermsOpen] = useState(false);
 
     // Form state
     const [name, setName] = useState(savedName || '');
     const [phone, setPhone] = useState(savedPhone || '');
-    const [termsAccepted, setTermsAccepted] = useState(false);
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const validatePhone = (p) => /^[6-9]\d{9}$/.test(p);
     const isValidName = name.trim().length > 0;
-    const isFormValid = isValidName && validatePhone(phone) && termsAccepted;
+    const isFormValid = isValidName && validatePhone(phone) && isTermsAccepted;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -32,7 +31,7 @@ const WelcomeScreen = ({ onStart }) => {
             setError('Please enter a valid 10-digit mobile number starting with 6–9');
             return;
         }
-        if (!termsAccepted) {
+        if (!isTermsAccepted) {
             setError('Please accept the Terms & Conditions');
             return;
         }
@@ -156,9 +155,9 @@ const WelcomeScreen = ({ onStart }) => {
                                         />
                                     </div>
 
-                                    <div className="flex items-start gap-3 group cursor-pointer" onClick={() => setTermsAccepted(!termsAccepted)}>
-                                        <div className={`shrink-0 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${termsAccepted ? 'bg-brand-orange border-brand-orange' : 'border-white/30 bg-white/5'}`}>
-                                            {termsAccepted && <ShieldCheck className="w-4 h-4 text-white" />}
+                                    <div className="flex items-start gap-3 group cursor-pointer" onClick={() => setIsTermsAccepted(!isTermsAccepted)}>
+                                        <div className={`shrink-0 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${isTermsAccepted ? 'bg-brand-orange border-brand-orange' : 'border-white/30 bg-white/5'}`}>
+                                            {isTermsAccepted && <ShieldCheck className="w-4 h-4 text-white" />}
                                         </div>
                                         <div className="text-[11px] text-white/80 font-bold leading-tight uppercase">
                                             I accept the{' '}

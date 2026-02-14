@@ -162,7 +162,7 @@ export const shuffleArray = (array) => {
 
 // Get shuffled questions with shuffled options
 export const getShuffledQuestions = () => {
-        const shuffledQuestions = shuffleArray(quizQuestions);
+        const shuffledQuestions = shuffleArray(quizQuestions).slice(0, 5);
         return shuffledQuestions.map(q => ({
                 ...q,
                 options: shuffleArray(q.options)

@@ -1,36 +1,17 @@
-import { motion } from 'framer-motion';
-import { Card, CardContent } from "./ui/card";
-import { Progress } from "./ui/progress";
 
-const ScoreCard = ({ score, total, percentage }) => {
+
+const ScoreCard = ({ score, total }) => {
     return (
-        <div className="bg-brand-blue text-white border-2 border-blue-900 shadow-sm mb-2 mx-2">
-            <CardContent className="p-4">
-                <div className="flex flex-col items-center justify-center mb-4">
-                    <div className="text-5xl font-black leading-none mb-1">
-                        {score}<span className="text-xl opacity-50">/{total}</span>
-                    </div>
-                    <div className="uppercase tracking-[0.2em] text-[10px] font-black opacity-60">
-                        Your Score
-                    </div>
+        <div className="flex justify-center items-center py-4">
+            <div className="relative flex flex-col items-center justify-center w-32 h-32 rounded-full border-4 border-brand-orange bg-brand-blue shadow-[0px_0px_20px_rgba(194,65,12,0.3)]">
+                <div className="uppercase tracking-[0.1em] text-[10px] font-black opacity-80 text-white mb-1">
+                    Your Score
                 </div>
-
-                <div className="space-y-1.5">
-                    <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
-                        <span>Accuracy</span>
-                        <span>{Math.round(percentage)}%</span>
-                    </div>
-                    {/* Custom progress specifically for the dark card context */}
-                    <div className="h-4 w-full bg-blue-900/50 overflow-hidden border border-blue-800">
-                        <motion.div
-                            className="h-full bg-brand-orange"
-                            initial={{ width: 0 }}
-                            animate={{ width: `${percentage}%` }}
-                            transition={{ duration: 1, ease: "easeOut" }}
-                        />
-                    </div>
+                <div className="flex items-baseline justify-center text-white gap-0.5">
+                    <span className="text-4xl font-black leading-none">{score}</span>
+                    <span className="text-2xl font-bold opacity-70">/{total}</span>
                 </div>
-            </CardContent>
+            </div>
         </div>
     );
 };
